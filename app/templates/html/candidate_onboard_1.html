@@ -1,0 +1,236 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}">
+
+    <title>HelloMeets Job Board - Candidate Resister</title>
+
+    <style>
+        body {
+            color: #3d3d3d;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #alert-area {
+            margin-top: 70px;
+        }
+
+        .main-heading {
+            margin-top: 100px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .skills-badge {
+            margin: 5px;
+        }
+
+        .main-heading-small {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .social-signup-button {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .social-signup-button-center {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">HelloMeets - Job Board</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Employers</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+
+    <div id="alert-area"></div>
+
+    <div class="container main-heading">
+        <h3>Hello {{ request.user.first_name }}! Please fill up your profile below.</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="page" value="1" />
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">
+                        <label>3. Where are you currently located?</label>
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <select name="current_city" id="current_city_id" placeholder="Delhi" required></select>
+                            </div>
+                        </div>
+                    </p>
+                    <p clas="card-text">
+                        <label>4. Where are you open to working?</label>
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <select name="open_to_city[]" id="open_city_id" placeholder="You can choose multiple cities" multiple required></select>
+                            </div>
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <label>5. Are you open to working remote also?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="remote_working_status" id="candidate_status_1" value="yes" checked>
+                            <label class="form-check-label" for="exampleRadios1">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="remote_working_status" id="candidate_status_2" value="no">
+                            <label class="form-check-label" for="exampleRadios1">No</label>
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <label>6. Please upload your updated resume.</label>
+                        <div class="form-group">
+                            <input type="file" name="candidate_resume" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <button class="btn btn-default" type="submit">Previous</button>
+                            </div>
+                            <div class="col-md-10"></div>
+                            <div class="col-md-1">
+                                <button class="btn btn-primary" type="submit">Next</button>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+</main>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+<script src="{% static 'js/selectize.min.js' %}"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        console.log('this page is working!');
+
+        var global_city_data = [];
+
+        $.get('../api/v1/get_indian_cities/', function(data){
+
+            JSON.parse(data.data).forEach(function(city){
+
+                global_city_data.push({
+                    id : city.fields.city_value,
+                    title : city.fields.city_name
+                })
+
+            });
+
+
+            $('#current_city_id').selectize({
+                plugins: ['remove_button'],
+                delimiter: ',',
+                persist: false,
+                valueField: 'id',
+                labelField: 'title',
+                searchField: 'title',
+                options: global_city_data,
+                create: function(input){
+                    console.log(input);
+                    options.push({
+                        id : 'ucity_' + input.toLowerCase(),
+                        title : input
+                    });
+                    return {
+                        id: 'ucity_' + input.toLowerCase(),
+                        title : input
+                    }
+                }
+            });
+
+            $('#open_city_id').selectize({
+                plugins: ['remove_button'],
+                delimiter: ',',
+                persist: false,
+                valueField: 'id',
+                labelField: 'title',
+                searchField: 'title',
+                options: global_city_data,
+                create: function(input){
+                    console.log(input);
+                    options.push({
+                        id : 'ucity_' + input.toLowerCase(),
+                        title : input
+                    });
+                    return {
+                        id: 'ucity_' + input.toLowerCase(),
+                        title : input
+                    }
+                }
+            })
+
+        });
+
+    })
+
+</script>
+
+
+</body>
+</html>

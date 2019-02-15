@@ -1,0 +1,258 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}">
+
+    <title>HelloMeets Job Board - Candidate Resister</title>
+
+    <style>
+        body {
+            color: #3d3d3d;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #alert-area {
+            margin-top: 70px;
+        }
+
+        .main-heading {
+            margin-top: 100px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .skills-badge {
+            margin: 5px;
+        }
+
+        .main-heading-small {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .social-signup-button {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .social-signup-button-center {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">HelloMeets - Job Board</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Employers</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+
+    <div id="alert-area"></div>
+
+    <div class="container main-heading">
+        <h3>Hello {{ request.user.first_name }}! Please fill up your profile below.</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="page" value="0" />
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">
+                        <label>1. Are you a working professional or fresher?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="candidate_status" id="candidate_status_1" value="professional" checked>
+                            <label class="form-check-label" for="exampleRadios1">Working Professional</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="candidate_status" id="candidate_status_2" value="fresher">
+                            <label class="form-check-label" for="exampleRadios1">Fresher</label>
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <label>2. Select your current role:</label>
+                        <select class="form-control form-control-sm" id="fetch_job_categories">
+                        </select>
+                    </p>
+                    <p class="card-text">
+                        <label>3. Select upto 10 skills.</label>
+                        <p id="show-skill-pills"></p>
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <select name="skills[]" class="" id="skill_id"
+                                        placeholder="e.g Python" multiple required> </select>
+                            </div>
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10"></div>
+                            <div class="col-md-1">
+                                <button class="btn btn-primary" type="submit">Next</button>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+</main>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+<script src="{% static 'js/selectize.min.js' %}"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        console.log('this page is working!');
+
+        function showSuggestedSkills(job_id){
+            console.log(job_id);
+            $.get('../api/v1/get_suggested_skills/?job_id=' + job_id, function(data){
+                //console.log(data);
+                $('#show-skill-pills').empty()
+                JSON.parse(data.data).forEach(function(primary_skills){
+                    $('#show-skill-pills').append(
+                        '<a href="#" class="badge badge-light skills-badge">' + primary_skills.fields.name + '</a>'
+                    )
+                })
+            })
+        }
+
+        $.get('../api/v1/fetch_job_categories/', function(data){
+
+            if(data.status == 'ok'){
+
+                var select_dom_data = '';
+
+                data.data.forEach(function(job_category){
+                    select_dom_data += '<optgroup label="' + job_category.job_category_name + '">';
+                    JSON.parse(job_category.job_fields).forEach(function(job_fields){
+                        select_dom_data += '<option id="' + job_fields.fields.job_name_id + '">' + job_fields.fields.job_name + '</option>'
+                    });
+                    select_dom_data += '<optgroup>'
+                });
+
+
+                $('#fetch_job_categories').append(select_dom_data);
+
+                //showSuggestedSkills($('#fetch_job_categories option:selected').attr('id'));
+
+            }
+        });
+
+        //show-skill-pills
+
+        document.getElementById('fetch_job_categories').onchange = function(e){
+            //showSuggestedSkills($('#fetch_job_categories option:selected').attr('id'))
+        };
+
+
+        $.get('../api/v1/get_primary_secondary_skills/', function(data){
+
+            var options = [];
+
+            JSON.parse(data.fetched_data.primary_skills).forEach(function(primary_skill){
+
+                options.push({
+                    id : 'ps_' + primary_skill.fields.primary_skill_id.toString(),
+                    title : primary_skill.fields.name
+                })
+
+            });
+
+            JSON.parse(data.fetched_data.secondary_skills).forEach(function(secondary_skill){
+
+                options.push({
+                    id : 'ss_' + secondary_skill.fields.secondary_skill_id.toString(),
+                    title : secondary_skill.fields.name
+                })
+
+            });
+
+            $('#skill_id').selectize({
+                plugins: ['remove_button'],
+                delimiter: ',',
+                persist: false,
+                valueField: 'id',
+                labelField: 'title',
+                searchField: 'title',
+                maxItems: 10,
+                options: options,
+                create: function(input){
+                    console.log(input);
+                    options.push({
+                        id : 'us_' + input.toLowerCase(),
+                        title : input
+                    });
+                    return {
+                        id: 'us_' + input.toLowerCase(),
+                        title : input
+                    }
+                }
+            })
+
+        });
+
+
+    })
+
+</script>
+
+
+</body>
+</html>
