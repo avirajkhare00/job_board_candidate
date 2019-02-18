@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>HelloMeets Job Board - Candidate Resister</title>
+    <title>HelloMeets Job Board - Candidate Login Page</title>
 
     <style>
         body {
@@ -55,11 +55,11 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="../register/">Signup</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="../login/">Login <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Employers</a>
@@ -73,9 +73,9 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>Top Companies. Full Privacy. No spam.</h3>
+        <h3>Candidate Login Page</h3>
         <span class="main-heading-small">
-                    If you are looking to hire. <a href="#">Click here</a>
+            If you are an Employer. <a href="#">Click here</a>.
                 </span>
     </div>
 
@@ -98,16 +98,6 @@
                     {% csrf_token %}
 
                     <div class="form-group">
-                        <label for="candidate_name_id">Your Name</label>
-                        <input type="text" name="candidate_name" class="form-control" id="candidate_name_id"
-                               placeholder="Your Name" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="candidate_username_id">Your Username</label>
-                        <input type="text" name="candidate_username" class="form-control" id="candidate_username_id"
-                               placeholder="Your Username" required/>
-                    </div>
-                    <div class="form-group">
                         <label for="candidate_email_id">Email</label>
                         <input type="email" name="candidate_email" class="form-control" id="candidate_email_id"
                                placeholder="Enter email" required/>
@@ -119,7 +109,7 @@
                     </div>
 
                     <div class="container social-signup-button-center">
-                        <button id="signup_button" type="submit" class="btn btn-outline-success">Signup</button>
+                        <button id="signup_button" type="submit" class="btn btn-outline-success">Login</button>
                     </div>
 
                 </form>

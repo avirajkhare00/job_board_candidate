@@ -60,8 +60,8 @@ class ValidateSignup:
             # redirect user to onboarding page
             new_user = User()
 
-            new_user.first_name = self.post_data['candidate_name'].split(' ')[0]
-            new_user.last_name = self.post_data['candidate_name'].split(' ')[1:]
+            new_user.first_name = self.post_data['candidate_name'].lstrip().rstrip().split(' ')[0]
+            new_user.last_name = self.post_data['candidate_name'].lstrip().rstrip().split(' ')[1:]
             new_user.email = self.post_data['candidate_email']
             new_user.username = self.post_data['candidate_username']
             new_user.set_password(self.post_data['candidate_password'])

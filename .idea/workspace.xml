@@ -2,35 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6306d750-d58a-439a-90f6-8b6854184e08" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/auth_modules/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/auth_modules/validate_signup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/onboarding_modules/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/onboarding_modules/fetch_job_categories.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/onboarding_modules/fetch_suggested_skills.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/onboarding_modules/get_indian_city_names.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/onboarding_modules/get_primary_secondary_skills.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_cities_name_india.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_college_names.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_degrees.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_industry_type.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_job_functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_primary_skills.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_secondary_skills.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_specializations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/html/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/core/common_data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/core/common_data/get_skill_name_id.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/core/common_data/get_user_profile_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/core/utils/fetch_company_name.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/html/jobs.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/html/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/html/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/html/settings.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/auth_modules/validate_signup.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/auth_modules/validate_signup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/html/candidate_onboard_0.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/html/candidate_onboard_0.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/html/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/html/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job_board_candidate/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/job_board_candidate/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job_board_candidate/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/job_board_candidate/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,12 +34,42 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/urls.py">
+        <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="76" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
+            <state relative-caret-position="372">
+              <caret line="85" column="21" selection-start-line="85" selection-start-column="4" selection-end-line="85" selection-end-column="21" />
               <folding>
-                <element signature="e#0#37#0" expanded="true" />
+                <element signature="e#0#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/html/jobs.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="662">
+              <caret line="167" column="7" selection-start-line="167" selection-start-column="7" selection-end-line="167" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/templates/html/profile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="415">
+              <caret line="194" column="69" selection-start-line="194" selection-start-column="69" selection-end-line="194" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/job_board_candidate/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+              <folding>
+                <element signature="e#643#675#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -58,29 +78,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_0.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="105" column="30" lean-forward="true" selection-start-line="98" selection-start-column="24" selection-end-line="105" selection-end-column="30" />
+            <state relative-caret-position="121">
+              <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/api.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="108" column="21" selection-start-line="108" selection-start-column="4" selection-end-line="108" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/app/templates/html/settings.html">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/core/onboarding_modules/get_indian_city_names.py">
+        <entry file="file://$PROJECT_DIR$/app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+            <state relative-caret-position="361">
+              <caret line="19" column="78" selection-start-line="19" selection-start-column="78" selection-end-line="19" selection-end-column="78" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -89,66 +102,41 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="127" column="29" selection-start-line="127" selection-start-column="29" selection-end-line="127" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="832">
-              <caret line="97" column="25" selection-start-line="97" selection-start-column="25" selection-end-line="97" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#49#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-117">
-              <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html">
+        <entry file="file://$PROJECT_DIR$/app/api.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="434">
-              <caret line="160" column="8" selection-start-line="160" selection-start-column="8" selection-end-line="160" selection-end-column="8" />
+              <caret line="138" column="26" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html">
+        <entry file="file://$PROJECT_DIR$/app/core/common_data/get_skill_name_id.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="126" column="69" selection-start-line="126" selection-start-column="69" selection-end-line="126" selection-end-column="69" />
+            <state relative-caret-position="-288">
+              <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/job_board_candidate/settings.py">
+        <entry file="file://$PROJECT_DIR$/app/templates/html/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+            <state relative-caret-position="209">
+              <caret line="11" lean-forward="true" selection-end-line="167" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>self.request.username</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -167,24 +155,30 @@
         <option value="$PROJECT_DIR$/app/core/utils/fetch_degrees.py" />
         <option value="$PROJECT_DIR$/app/core/utils/fetch_specializations.py" />
         <option value="$PROJECT_DIR$/app/core/utils/fetch_college_names.py" />
-        <option value="$PROJECT_DIR$/app/templates/html/register.html" />
-        <option value="$PROJECT_DIR$/app/core/auth_modules/validate_signup.py" />
         <option value="$PROJECT_DIR$/app/core/onboarding_modules/fetch_job_categories.py" />
         <option value="$PROJECT_DIR$/app/core/onboarding_modules/fetch_suggested_skills.py" />
         <option value="$PROJECT_DIR$/app/templates/html/candidate_onboard.html" />
         <option value="$PROJECT_DIR$/app/core/onboarding_modules/get_primary_secondary_skills.py" />
-        <option value="$PROJECT_DIR$/app/templates/html/candidate_onboard_0.html" />
         <option value="$PROJECT_DIR$/app/admin.py" />
-        <option value="$PROJECT_DIR$/app/models.py" />
         <option value="$PROJECT_DIR$/app/core/utils/fetch_cities_name_india.py" />
         <option value="$PROJECT_DIR$/app/core/onboarding_modules/get_indian_city_names.py" />
+        <option value="$PROJECT_DIR$/job_board_candidate/settings.py" />
+        <option value="$PROJECT_DIR$/app/templates/html/candidate_onboard_0.html" />
+        <option value="$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html" />
+        <option value="$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html" />
+        <option value="$PROJECT_DIR$/app/core/utils/fetch_company_name.py" />
+        <option value="$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py" />
+        <option value="$PROJECT_DIR$/app/core/common_data/get_user_profile_data.py" />
+        <option value="$PROJECT_DIR$/app/core/auth_modules/validate_signup.py" />
+        <option value="$PROJECT_DIR$/app/templates/html/register.html" />
+        <option value="$PROJECT_DIR$/app/models.py" />
+        <option value="$PROJECT_DIR$/app/templates/html/login.html" />
+        <option value="$PROJECT_DIR$/app/templates/html/jobs.html" />
+        <option value="$PROJECT_DIR$/app/views.py" />
         <option value="$PROJECT_DIR$/app/api.py" />
         <option value="$PROJECT_DIR$/app/urls.py" />
-        <option value="$PROJECT_DIR$/app/views.py" />
-        <option value="$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py" />
-        <option value="$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html" />
-        <option value="$PROJECT_DIR$/job_board_candidate/settings.py" />
-        <option value="$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html" />
+        <option value="$PROJECT_DIR$/app/core/common_data/get_skill_name_id.py" />
+        <option value="$PROJECT_DIR$/app/templates/html/profile.html" />
       </list>
     </option>
   </component>
@@ -221,7 +215,21 @@
               <item name="job_board_candidate" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="onboarding_modules" type="462c0819:PsiDirectoryNode" />
+              <item name="auth_modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="job_board_candidate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="job_board_candidate" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="common_data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="job_board_candidate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="job_board_candidate" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="job_board_candidate" type="b2602c69:ProjectViewProjectNode" />
@@ -234,7 +242,7 @@
               <item name="job_board_candidate" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="job_board_candidate" type="b2602c69:ProjectViewProjectNode" />
@@ -315,12 +323,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1549484871699</updated>
-      <workItem from="1549484877115" duration="55554000" />
+      <workItem from="1549484877115" duration="77920000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55554000" />
+    <option name="totallyTimeSpent" value="77920000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -433,26 +441,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/utils/fetch_college_names.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/auth_modules/validate_signup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1197">
-          <caret line="63" column="79" selection-start-line="63" selection-start-column="79" selection-end-line="63" selection-end-column="79" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/core/onboarding_modules/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -473,13 +461,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/html/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="103" column="65" selection-start-line="101" selection-start-column="24" selection-end-line="103" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
@@ -493,16 +474,6 @@
           <caret line="16" column="103" selection-start-line="16" selection-start-column="103" selection-end-line="16" selection-end-column="103" />
           <folding>
             <element signature="e#0#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/job_board_candidate/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
-          <folding>
-            <element signature="e#643#675#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -527,26 +498,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/utils/fetch_cities_name_india.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="127" column="29" selection-start-line="127" selection-start-column="29" selection-end-line="127" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/core/onboarding_modules/get_indian_city_names.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -557,10 +508,155 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api.py">
+    <entry file="file://$PROJECT_DIR$/job_board_candidate/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/utils/fetch_cities_name_india.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/common_data/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="90" column="60" selection-start-line="90" selection-start-column="60" selection-end-line="90" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="92" column="57" selection-start-line="92" selection-start-column="57" selection-end-line="92" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/utils/fetch_company_name.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/utils/fetch_college_names.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2880">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/common_data/get_user_profile_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
-          <caret line="108" column="21" selection-start-line="108" selection-start-column="4" selection-end-line="108" selection-end-column="21" />
+          <caret line="34" column="116" selection-start-line="34" selection-start-column="116" selection-end-line="34" selection-end-column="116" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2581">
+          <caret line="151" column="36" selection-start-line="151" selection-start-column="36" selection-end-line="151" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#103#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/auth_modules/validate_signup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1197">
+          <caret line="63" column="92" selection-start-line="63" selection-start-column="92" selection-end-line="63" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/html/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="40" column="18" lean-forward="true" selection-end-line="177" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2964">
+          <caret line="156" column="44" selection-start-line="156" selection-start-column="44" selection-end-line="156" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/html/settings.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/html/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-end-line="167" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="85" column="21" selection-start-line="85" selection-start-column="4" selection-end-line="85" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/html/jobs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="662">
+          <caret line="167" column="7" selection-start-line="167" selection-start-column="7" selection-end-line="167" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_0.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/job_board_candidate/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+          <folding>
+            <element signature="e#643#675#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="138" column="26" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="26" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -569,56 +665,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="76" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
+        <state relative-caret-position="361">
+          <caret line="19" column="78" selection-start-line="19" selection-start-column="78" selection-end-line="19" selection-end-column="78" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views.py">
+    <entry file="file://$PROJECT_DIR$/app/core/common_data/get_skill_name_id.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="832">
-          <caret line="97" column="25" selection-start-line="97" selection-start-column="25" selection-end-line="97" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-288">
+          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/onboarding_modules/store_onboarding_user_data.py">
+    <entry file="file://$PROJECT_DIR$/app/templates/html/profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-117">
-          <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_0.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="105" column="30" lean-forward="true" selection-start-line="98" selection-start-column="24" selection-end-line="105" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="126" column="69" selection-start-line="126" selection-start-column="69" selection-end-line="126" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/job_board_candidate/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/html/candidate_onboard_2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="160" column="8" selection-start-line="160" selection-start-column="8" selection-end-line="160" selection-end-column="8" />
+        <state relative-caret-position="415">
+          <caret line="194" column="69" selection-start-line="194" selection-start-column="69" selection-end-line="194" selection-end-column="69" />
         </state>
       </provider>
     </entry>

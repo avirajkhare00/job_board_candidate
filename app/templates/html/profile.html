@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>HelloMeets Job Board - Candidate Resister</title>
+    <title>HelloMeets Job Board - Candidate Profile</title>
 
     <style>
         body {
@@ -41,6 +41,16 @@
             margin-top: 10px;
             text-align: center;
         }
+
+        .profile-list {
+            margin-bottom: 10px;
+        }
+
+        .candidate-profile-info {
+            text-align: center;
+            font-size: 12px;
+        }
+
     </style>
 
 </head>
@@ -56,13 +66,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="../settings/">Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Employers</a>
+                <a class="nav-link" href="../logout/">Logout</a>
             </li>
         </ul>
     </div>
@@ -73,10 +83,12 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>Top Companies. Full Privacy. No spam.</h3>
-        <span class="main-heading-small">
-                    If you are looking to hire. <a href="#">Click here</a>
-                </span>
+        <h3>Hello {{ request.user.first_name }}! Check your profile.</h3>
+        <p class="candidate-profile-info">
+            Please keep your profile updated so that you can see best jobs available in our network.
+            <br />
+            If you want to update your profile, <a href="../onboard/?page=1">click here</a>
+        </p>
     </div>
 
     <div class="row">
@@ -93,36 +105,34 @@
             <hr/>
 
             <div class="container">
-                <form class="form" method="post">
 
-                    {% csrf_token %}
-
-                    <div class="form-group">
-                        <label for="candidate_name_id">Your Name</label>
-                        <input type="text" name="candidate_name" class="form-control" id="candidate_name_id"
-                               placeholder="Your Name" required/>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Your Job Preferences</h5>
+                        <p class="card-text">
+                            <ul>
+                                <li class="profile-list">
+                                    Currently located in: <b id="current_location"></b>
+                                </li>
+                                <li class="profile-list">
+                                    Willing to work in: <b id="interested_location"></b>
+                                </li>
+                                <li class="profile-list">
+                                    Current role: <b id="primary_role"></b>
+                                </li>
+                                <li class="profile-list">
+                                    Your skills: <b id="skills"></b>
+                                </li>
+                                <li class="profile-list">
+                                    Interested in remote working: <b id="remote_working_status"></b>
+                                </li>
+                                <li class="profile-list">
+                                    Uploaded resume: <b id="resume"></b>
+                                </li>
+                            </ul>
+                        </p>
                     </div>
-                    <div class="form-group">
-                        <label for="candidate_username_id">Your Username</label>
-                        <input type="text" name="candidate_username" class="form-control" id="candidate_username_id"
-                               placeholder="Your Username" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="candidate_email_id">Email</label>
-                        <input type="email" name="candidate_email" class="form-control" id="candidate_email_id"
-                               placeholder="Enter email" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="candidate_password_id">Password</label>
-                        <input type="password" name="candidate_password" class="form-control" id="candidate_password_id"
-                               placeholder="Your Password" required/>
-                    </div>
-
-                    <div class="container social-signup-button-center">
-                        <button id="signup_button" type="submit" class="btn btn-outline-success">Signup</button>
-                    </div>
-
-                </form>
+                </div>
 
             </div>
 
@@ -153,21 +163,39 @@
 
         console.log('this page is working!');
 
-        var status = {{ status }};
+        $.get('../api/v1/get_user_profile_data/', function(data){
 
-        if (status == 'email_exists') {
+            let profile_data = data;
 
-            //append failure notification
-            $('#alert-area').append(
-                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                '<strong>Error!</strong> This email has already been taken.' +
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                '<span aria-hidden="true">&times;</span>' +
-                '</button>' +
-                '</div>'
+            $('#current_location').text(profile_data.current_location_value);
+
+            profile_data.candidate_interested_cities.forEach(function(city){
+                $('#interested_location').append(city+', ')
+            });
+
+            $('#primary_role').text(profile_data.candidate_job_title);
+
+            profile_data.candidate_skill_ids.forEach(function(skill_id){
+                $.get('../api/v1/get_skill_name_id/?skill_id='+skill_id, function(skill_name_json){
+
+                    $('#skills').append(skill_name_json.skill_name+', ')
+
+                })
+            });
+
+            if(profile_data.remote_working_status === true){
+                $('#remote_working_status').text('Yes')
+            }
+
+            if(profile_data.remote_working_status === false){
+                $('#remote_working_status').text('No')
+            }
+
+            $('#resume').html(
+                '<a href="' + profile_data.candidate_resume_url + '">link</a>'
             )
 
-        }
+        })
 
     })
 

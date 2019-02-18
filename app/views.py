@@ -1,10 +1,12 @@
 from django.shortcuts import render, HttpResponse, redirect
 from app.core.auth_modules.validate_signup import ValidateSignup
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 from app.core.onboarding_modules.store_onboarding_user_data import StoreOnboardingUserData
 import json
 
 # Create your views here.
+
 
 def register_page(request):
 
@@ -31,23 +33,30 @@ def login_user(request):
 
     if request.method == 'GET':
 
-        return HttpResponse('login_page_coming_soon')
+        return render(request, 'html/login.html')
 
     if request.method == 'POST':
 
-        username = request.POST['username']
-        password = request.POST['password']
+        email = request.POST['candidate_email']
+        password = request.POST['candidate_password']
 
-        user = authenticate(request, username=username, password=password)
+        if User.objects.filter(email=email).exists():
 
-        if user is not None:
+            user = authenticate(request, username=User.objects.get(email=email).username, password=password)
 
-            login(request, user)
-            redirect('../')
+            if user is not None:
+
+                login(request, user)
+
+                return redirect('../jobs/')
+
+            else:
+
+                return redirect('../login/?error=wrong_credentials')
 
         else:
 
-            redirect('login/?error=wrong_credentials')
+            return redirect('../login?error=wrong_credentials')
 
 
 def logout_user(request):
@@ -61,6 +70,28 @@ def logout_user(request):
     else:
 
         return redirect('../login/')
+
+
+def candidate_jobs(request):
+
+    if request.user.is_authenticated:
+
+        return render(request, 'html/jobs.html')
+
+    else:
+
+        return redirect('../login/?error=user_not_logged_in')
+
+
+def candidate_profile(request):
+
+    if request.user.is_authenticated:
+
+        return render(request, 'html/profile.html')
+
+    else:
+
+        return redirect('../login/?error=user_not_logged_in')
 
 
 def user_onboard(request):
@@ -83,7 +114,11 @@ def user_onboard(request):
 
             if 'page' not in request.GET:
 
-                return render(request, 'html/candidate_onboard_0.html')
+                return redirect('../onboard?page=1')
+
+            else:
+
+                return redirect('../onboard?page=1')
 
         else:
 
@@ -95,7 +130,9 @@ def user_onboard(request):
 
             status = StoreOnboardingUserData(request).store_data()
 
-            print(status)
+            if status == "send_user_page_1":
+
+                return redirect('../onboard/?page=1')
 
             if status == 1:
 
@@ -105,4 +142,7 @@ def user_onboard(request):
 
                 return redirect('../onboard/?page=3')
 
-            return HttpResponse()
+            if status == 3:
+
+                return redirect('../dashboard/')
+

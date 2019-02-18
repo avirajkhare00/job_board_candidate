@@ -107,7 +107,7 @@
                     </p>
                     <p class="card-text">
                         <label>2. Select your current role:</label>
-                        <select class="form-control form-control-sm" id="fetch_job_categories">
+                        <select name="job_role" class="form-control form-control-sm" id="fetch_job_categories">
                         </select>
                     </p>
                     <p class="card-text">
@@ -182,7 +182,7 @@
                 data.data.forEach(function(job_category){
                     select_dom_data += '<optgroup label="' + job_category.job_category_name + '">';
                     JSON.parse(job_category.job_fields).forEach(function(job_fields){
-                        select_dom_data += '<option id="' + job_fields.fields.job_name_id + '">' + job_fields.fields.job_name + '</option>'
+                        select_dom_data += '<option value="' + job_fields.fields.job_name_id + '">' + job_fields.fields.job_name + '</option>'
                     });
                     select_dom_data += '<optgroup>'
                 });

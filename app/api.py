@@ -11,6 +11,8 @@ from app.core.onboarding_modules.fetch_job_categories import FetchJobCategories
 from app.core.onboarding_modules.fetch_suggested_skills import FetchSuggestedSkills
 from app.core.onboarding_modules.get_primary_secondary_skills import GetPrimarySecondarySkills
 from app.core.onboarding_modules.get_indian_city_names import GetIndianCityNames
+from app.core.common_data.get_user_profile_data import GetUserProfileData
+from app.core.common_data.get_skill_name_id import GetSkillNameId
 import json
 
 
@@ -106,12 +108,40 @@ def get_primary_secondary_skills(request):
         return HttpResponse(401)
 
 
+def get_user_profile_data(request):
+
+    if request.user.is_authenticated:
+
+        return HttpResponse(
+            json.dumps(GetUserProfileData(request.user.username).fetch_user_data()),
+            content_type='application/json'
+        )
+
+    else:
+
+        return HttpResponse(401)
+
+
 def get_indian_cities(request):
 
     if request.user.is_authenticated:
 
         return HttpResponse(
             json.dumps(GetIndianCityNames().get_data()),
+            content_type='application/json'
+        )
+
+    else:
+
+        return HttpResponse(401)
+
+
+def get_skill_name_from_id(request):
+
+    if request.user.is_authenticated:
+
+        return HttpResponse(
+            json.dumps(GetSkillNameId(request.GET['skill_id']).get_skill_name()),
             content_type='application/json'
         )
 

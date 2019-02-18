@@ -3,10 +3,17 @@ from django.db import models
 
 # Create your models here.
 
+
 class CandidateFields(models.Model):
 
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     candidate_status = models.IntegerField()
+    candidate_job_id = models.IntegerField(null=True, blank=True)
+    current_location_id = models.CharField(max_length=200, null=True, blank=True)
+    remote_working = models.BooleanField(default=True)
+    resume_file_name = models.CharField(max_length=200, null=True, blank=True)
+    event_subscribe = models.BooleanField(default=True)
+    newsletter_subscribe = models.BooleanField(default=True)
 
     def __str__(self):
 
@@ -21,6 +28,7 @@ class CandidateSkills(models.Model):
     def __str__(self):
 
         return self.user_id.user_id.username
+
 
 class JobCategory(models.Model):
 
@@ -65,6 +73,7 @@ class SecondarySkills(models.Model):
     def __str__(self):
 
         return self.name
+
 
 class UserGeneratedSkills(models.Model):
 
@@ -126,3 +135,23 @@ class IndianCityName(models.Model):
     def __str__(self):
 
         return self.city_name
+
+
+class CompanyName(models.Model):
+
+    company_name = models.CharField(max_length=200)
+    company_name_slug = models.CharField(max_length=200)
+
+    def __str__(self):
+
+        return self.company_name
+
+
+class CandidateInterestedCities(models.Model):
+
+    user_id = models.ForeignKey(CandidateFields, on_delete=models.CASCADE)
+    interested_city_value = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+
+        return self.user_id.user_id.username
