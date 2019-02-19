@@ -1,5 +1,6 @@
-from app.models import PrimarySkills, SecondarySkills
+from app.models import PrimarySkills, SecondarySkills, UserGeneratedSkills
 from django.core import serializers
+
 
 class GetPrimarySecondarySkills:
 
@@ -23,5 +24,12 @@ class GetPrimarySecondarySkills:
             SecondarySkills.objects.all(),
             fields=('secondary_skill_id','name')
         )
+
+        if len(UserGeneratedSkills.objects.all()):
+
+            self.data['fetched_data']['user_skills'] = serializers.serialize(
+                'json',
+                UserGeneratedSkills.objects.all()
+            )
 
         return self.data

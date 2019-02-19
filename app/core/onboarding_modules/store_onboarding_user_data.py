@@ -1,6 +1,7 @@
 from app.models import CandidateFields, CandidateSkills, UserGeneratedSkills, CandidateInterestedCities
 from django.core.files.storage import FileSystemStorage
 
+
 class StoreOnboardingUserData:
 
     def __init__(self, request):
@@ -60,13 +61,25 @@ class StoreOnboardingUserData:
 
                         new_skill.save()
 
-                    new_candidate_skills = CandidateSkills()
+                        new_candidate_skills = CandidateSkills()
 
-                    new_candidate_skills.user_id = old_candidate
+                        new_candidate_skills.user_id = old_candidate
 
-                    new_candidate_skills.skill_id = i
+                        print(str(new_skill.skill_id))
 
-                    new_candidate_skills.save()
+                        new_candidate_skills.skill_id = 'us_' + str(new_skill.skill_id)
+
+                        new_candidate_skills.save()
+
+                    else:
+
+                        new_candidate_skills = CandidateSkills()
+
+                        new_candidate_skills.user_id = old_candidate
+
+                        new_candidate_skills.skill_id = i
+
+                        new_candidate_skills.save()
 
             else:
 
@@ -97,13 +110,23 @@ class StoreOnboardingUserData:
 
                         new_skill.save()
 
-                    new_candidate_skills = CandidateSkills()
+                        new_candidate_skills = CandidateSkills()
 
-                    new_candidate_skills.user_id = new_candidate
+                        new_candidate_skills.user_id = new_candidate
 
-                    new_candidate_skills.skill_id = i
+                        new_candidate_skills.skill_id = 'us_' + str(new_skill.skill_id)
 
-                    new_candidate_skills.save()
+                        new_candidate_skills.save()
+
+                    else:
+
+                        new_candidate_skills = CandidateSkills()
+
+                        new_candidate_skills.user_id = new_candidate
+
+                        new_candidate_skills.skill_id = i
+
+                        new_candidate_skills.save()
 
             return 1
 

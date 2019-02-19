@@ -94,6 +94,17 @@ def candidate_profile(request):
         return redirect('../login/?error=user_not_logged_in')
 
 
+def candidate_settings(request):
+
+    if request.user.is_authenticated:
+
+        return render(request, 'html/settings.html')
+
+    else:
+
+        return redirect('../login/?error=user_not_logged_in')
+
+
 def user_onboard(request):
 
     if request.method == 'GET':
@@ -144,5 +155,5 @@ def user_onboard(request):
 
             if status == 3:
 
-                return redirect('../dashboard/')
+                return redirect('../jobs/')
 

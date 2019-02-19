@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>HelloMeets Job Board - Candidate Settings Page</title>
+
+    <style>
+        body {
+            color: #3d3d3d;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #alert-area {
+            margin-top: 70px;
+        }
+
+        .main-heading {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .main-heading-small {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .social-signup-button {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .social-signup-button-center {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">HelloMeets - Job Board</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../jobs">Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../profile/">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Settings <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../logout/">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+
+    <div id="alert-area"></div>
+
+    <div class="container main-heading">
+        <h3>Your Account Settings</h3>
+        <span class="main-heading-small">
+            You can update your account settings and email preferences here.
+        </span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <!--
+            <div class="container social-signup-button">
+                <button type="button" class="btn btn-outline-primary">Google Signup</button>
+            </div>
+            <div class="container social-signup-button">
+                <button type="button" class="btn btn-outline-primary">Linkedin Signup</button>
+            </div> -->
+
+            <hr/>
+
+            <div class="container">
+                <form class="form" method="post">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="candidate_name_id">Name</label>
+                        <input type="text" name="candidate_name" class="form-control" id="candidate_name_id"
+                               value="{{ request.user.get_full_name }}" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="candidate_email_id">Email</label>
+                        <input type="email" name="candidate_email" class="form-control" id="candidate_email_id"
+                               value="{{ request.user.email }}" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidate_password_id">Password</label>
+                        <input type="password" name="candidate_password" class="form-control" id="candidate_password_id"
+                               placeholder="Your Password" required/>
+                    </div>
+
+                    <div class="container social-signup-button-center">
+                        <button id="signup_button" type="submit" class="btn btn-outline-success">Update</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+
+
+</main>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        console.log('this page is working!');
+
+        var status = {{ status }};
+
+        if (status == 'email_exists') {
+
+            //append failure notification
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> This email has already been taken.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+
+        }
+
+    })
+
+</script>
+
+
+</body>
+</html>

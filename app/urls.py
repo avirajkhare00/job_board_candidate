@@ -1,5 +1,6 @@
 from django.urls import path, include
 from app.views import register_page, user_onboard, login_user, logout_user, candidate_jobs, candidate_profile
+from app.views import candidate_settings
 from app.api import check_candidate_email, fetch_job_functions, fetch_primary_skills, fetch_secondary_skills
 from app.api import fetch_specialization_and_college_data, fetch_job_categories, get_suggested_skills
 from app.api import get_primary_secondary_skills, fetch_indian_city_data, get_indian_cities, get_user_profile_data
@@ -11,6 +12,7 @@ urlpatterns = [
     path('onboard/', user_onboard, name='user_onboard_zero'),
     path('jobs/', candidate_jobs, name='get_user_profile_data'),
     path('profile/', candidate_profile, name='candidate_profile'),
+    path('settings/', candidate_settings, name='candidate_settings'),
     #api urls below
     path('fetch_job_categories/', fetch_job_categories, name='fetch_job_categories'),
     path('get_suggested_skills/', get_suggested_skills, name='get_suggested_skills'),
