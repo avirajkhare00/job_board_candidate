@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,8 +11,11 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/trumbowyg.min.css' %}"
 
-    <title>HelloMeets Job Board - Candidate Jobs Page</title>
+    <title>HelloMeets Job Board - Company Jobs</title>
 
     <style>
         body {
@@ -25,6 +30,15 @@
         .main-heading {
             margin-top: 100px;
             text-align: center;
+        }
+
+        .skill_badge_container {
+            margin: 5px;
+        }
+
+        .margin-span {
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
 
         .main-heading-small {
@@ -56,16 +70,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Jobs <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../profile/">Profile</a>
+                <a class="nav-link" href="#">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../settings/">Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../logout/">Logout</a>
+                <a class="nav-link disabled" href="#">Employers</a>
             </li>
         </ul>
     </div>
@@ -76,11 +87,7 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>Available Jobs</h3>
-        <span class="main-heading-small">
-            These jobs are getting displayed based on your preference.<br />
-            You can update your preferences <a href="../onboard/">here.</a>
-        </span>
+        <h3>{{ company_name }} has {{ active_job_number }} active Jobs</h3>
     </div>
 
     <div class="row">
@@ -98,7 +105,16 @@
 
             <div class="container">
 
-                {% for job in all_jobs %}
+                <button type="button" id="add_job_btn" class="btn btn-outline-primary btn-lg btn-block">Add Job</button>
+
+                <hr />
+
+
+                    <h4 style="text-align: center;">Jobs Posted</h4>
+
+                <div class="container">
+
+                    {% for job in all_jobs_posted %}
 
                     <div class="card">
                         <div class="card-body">
@@ -109,11 +125,17 @@
                                 <span class="badge badge-light">CSS</span>
                                 <span class="badge badge-light">JavaScript</span>
                             </div>
-                            <a target="_blank" href="../../../job/{{ job.job_slug }}">View Job</a>
+                            <a href="../edit_job/{{ job.id }}">edit job</a>
+                            <br />
+                            <a href="../view_candidates/{{ job.id }}">View Candidates</a>
+                            <br />
+                            <a href="#">deactivate job</a>
                         </div>
                     </div>
 
-                {% endfor %}
+                    {% endfor %}
+
+                </div>
 
             </div>
 
@@ -137,6 +159,9 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 
+<script src="{% static 'js/selectize.min.js' %}"></script>
+<script src="{% static 'js/trumbowyg.min.js' %}"></script>
+
 
 <script type="text/javascript">
 
@@ -144,9 +169,12 @@
 
         console.log('this page is working!');
 
+        $('#add_job_btn').on('click', function(){
 
+            window.location.href = '../new_job/'
 
     })
+    });
 
 </script>
 

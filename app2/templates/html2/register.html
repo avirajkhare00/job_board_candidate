@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>HelloMeets Job Board - Candidate Jobs Page</title>
+    <title>HelloMeets Job Board - Company Resister</title>
 
     <style>
         body {
@@ -56,16 +56,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Jobs <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../profile/">Profile</a>
+                <a class="nav-link" href="#">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../settings/">Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../logout/">Logout</a>
+                <a class="nav-link disabled" href="#">Employers</a>
             </li>
         </ul>
     </div>
@@ -76,11 +73,10 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>Available Jobs</h3>
+        <h3>Ready to hire with less effort?</h3>
         <span class="main-heading-small">
-            These jobs are getting displayed based on your preference.<br />
-            You can update your preferences <a href="../onboard/">here.</a>
-        </span>
+                    If you are looking for a Job, <a href="#">Click here</a>
+                </span>
     </div>
 
     <div class="row">
@@ -97,23 +93,41 @@
             <hr/>
 
             <div class="container">
+                <form class="form" method="post">
 
-                {% for job in all_jobs %}
+                    {% csrf_token %}
 
-                    <div class="card">
-                        <div class="card-body">
-                            <b>{{ job.job_name }}</b>
-                            <br />
-                            <div class="skill_badge_container">
-                                <span class="badge badge-light">HTML</span>
-                                <span class="badge badge-light">CSS</span>
-                                <span class="badge badge-light">JavaScript</span>
-                            </div>
-                            <a target="_blank" href="../../../job/{{ job.job_slug }}">View Job</a>
-                        </div>
+                    <div class="form-group">
+                        <label for="employer_name_id">Your Name</label>
+                        <input type="text" name="employer_name" class="form-control" id="employer_name_id"
+                               placeholder="Your Name" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_username_id">Your Username</label>
+                        <input type="text" name="employer_username" class="form-control" id="employer_username_id"
+                               placeholder="Your Username" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="company_name_id">Company Name</label>
+                        <input type="text" name="company_name" class="form-control" id="company_name_id"
+                               placeholder="Your Company Name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="employer_email_id">Email</label>
+                        <input type="email" name="employer_email" class="form-control" id="employer_email_id"
+                               placeholder="Enter email" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidate_password_id">Password</label>
+                        <input type="password" name="employer_password" class="form-control" id="candidate_password_id"
+                               placeholder="Your Password" required/>
                     </div>
 
-                {% endfor %}
+                    <div class="container social-signup-button-center">
+                        <button id="signup_button" type="submit" class="btn btn-outline-success">Signup</button>
+                    </div>
+
+                </form>
 
             </div>
 
@@ -144,7 +158,21 @@
 
         console.log('this page is working!');
 
+        var status = {{ status }};
 
+        if (status == 'email_exists') {
+
+            //append failure notification
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> This email has already been taken.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+
+        }
 
     })
 

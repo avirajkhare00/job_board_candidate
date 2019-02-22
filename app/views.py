@@ -3,6 +3,8 @@ from app.core.auth_modules.validate_signup import ValidateSignup
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from app.core.onboarding_modules.store_onboarding_user_data import StoreOnboardingUserData
+from app2.models import JobPost
+from app.models import CandidateFields
 import json
 
 # Create your views here.
@@ -76,7 +78,13 @@ def candidate_jobs(request):
 
     if request.user.is_authenticated:
 
-        return render(request, 'html/jobs.html')
+        all_jobs = JobPost.objects.filter(job_name_id=CandidateFields.objects.get(user_id__username=request.user.username).candidate_job_id, is_active=True)
+
+        print(all_jobs)
+
+        return render(request, 'html/jobs.html', {
+            'all_jobs': all_jobs
+        })
 
     else:
 

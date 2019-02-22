@@ -1,0 +1,340 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/trumbowyg.min.css' %}"
+
+    <title>HelloMeets Job Board - Post A New Job</title>
+
+    <style>
+        body {
+            color: #3d3d3d;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #alert-area {
+            margin-top: 70px;
+        }
+
+        .main-heading {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .margin-span {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .main-heading-small {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .social-signup-button {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .social-signup-button-center {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">HelloMeets - Job Board</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Employers</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+
+    <div id="alert-area"></div>
+
+    <div class="container main-heading">
+        <h3>Post a New Job</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <!--
+            <div class="container social-signup-button">
+                <button type="button" class="btn btn-outline-primary">Google Signup</button>
+            </div>
+            <div class="container social-signup-button">
+                <button type="button" class="btn btn-outline-primary">Linkedin Signup</button>
+            </div> -->
+
+            <hr/>
+
+            <div class="container">
+
+                <form class="form" id="add_job_form" method="post">
+
+                    <div class="form-group">
+                        <label for="job_name_id">1. Job Title</label>
+                        <input type="text" name="job_name" class="form-control" id="job_name_id"
+                               placeholder="Job Title" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="fetch_job_categories">2. Job Role</label>
+                        <select name="job_role" class="form-control form-control-sm" id="fetch_job_categories">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="job_location_id">3. Where is this job located?</label>
+                        <select name="job_location" id="job_location_id" placeholder="Delhi" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="job_description">4. Please enter Job Description.</label>
+                        <span id="min_editor"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="skill_id">5. Skills you are looking in a candidate.</label>
+                        <select name="job_skills[]" class="" id="skill_id"
+                                placeholder="e.g Python, javascript" multiple required> </select>
+                    </div>
+                    <button type="button" id="post_job" class="btn btn-outline-success btn-lg btn-block">Post Job
+                    </button>
+                    <button type="button" id="save_draft" class="btn btn-outline-primary btn-lg btn-block">Save Draft
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+
+
+</main>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+<script src="{% static 'js/selectize.min.js' %}"></script>
+<script src="{% static 'js/trumbowyg.min.js' %}"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        console.log('this page is working!');
+
+        $.get('../../candidate/api/v1/fetch_job_categories/', function (data) {
+
+            if (data.status == 'ok') {
+
+                var select_dom_data = '';
+
+                data.data.forEach(function (job_category) {
+                    select_dom_data += '<optgroup label="' + job_category.job_category_name + '">';
+                    JSON.parse(job_category.job_fields).forEach(function (job_fields) {
+                        select_dom_data += '<option value="' + job_fields.fields.job_name_id + '">' + job_fields.fields.job_name + '</option>'
+                    });
+                    select_dom_data += '<optgroup>'
+                });
+
+
+                $('#fetch_job_categories').append(select_dom_data);
+
+                var global_city_data = [];
+
+                $.get('../../candidate/api/v1/get_indian_cities/', function (data) {
+
+                    JSON.parse(data.data).forEach(function (city) {
+
+                        global_city_data.push({
+                            id: city.fields.city_value,
+                            title: city.fields.city_name
+                        })
+
+                    });
+
+
+                    $('#job_location_id').selectize({
+                        //plugins: ['remove_button'],
+                        delimiter: ',',
+                        persist: false,
+                        valueField: 'id',
+                        labelField: 'title',
+                        searchField: 'title',
+                        options: global_city_data,
+                        create: function (input) {
+                            console.log(input);
+                            options.push({
+                                id: 'ucity_' + input.toLowerCase(),
+                                title: input
+                            });
+                            return {
+                                id: 'ucity_' + input.toLowerCase(),
+                                title: input
+                            }
+                        }
+                    });
+
+                })
+            }
+
+        });
+
+
+        $.get('../api/v1/get_primary_secondary_skills/', function (data) {
+
+            var options = [];
+
+            JSON.parse(data.fetched_data.primary_skills).forEach(function (primary_skill) {
+
+                options.push({
+                    id: 'ps_' + primary_skill.fields.primary_skill_id.toString(),
+                    title: primary_skill.fields.name
+                })
+
+            });
+
+            JSON.parse(data.fetched_data.secondary_skills).forEach(function (secondary_skill) {
+
+                options.push({
+                    id: 'ss_' + secondary_skill.fields.secondary_skill_id.toString(),
+                    title: secondary_skill.fields.name
+                })
+
+            });
+
+            $('#skill_id').selectize({
+                plugins: ['remove_button'],
+                delimiter: ',',
+                persist: false,
+                valueField: 'id',
+                labelField: 'title',
+                searchField: 'title',
+                maxItems: 10,
+                options: options,
+                create: function (input) {
+                    console.log(input);
+                    options.push({
+                        id: 'us_' + input.toLowerCase(),
+                        title: input
+                    });
+                    return {
+                        id: 'us_' + input.toLowerCase(),
+                        title: input
+                    }
+                }
+            })
+
+        });
+
+        $('#min_editor').trumbowyg({
+            btns: [
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['unorderedList', 'orderedList'],
+            ]
+        });
+
+        function sendPostJobData(condition) {
+
+            let is_draft_condition = false;
+
+            if (condition === 1) {
+                is_draft_condition = false;
+            }
+
+            if (condition === 2) {
+                is_draft_condition = true;
+            }
+
+            //send whole content as xhr and on success load to new window
+            console.log($('#job_name_id').val());
+            console.log($('#fetch_job_categories').val());
+            console.log($('#job_location_id').val());
+            console.log($('#skill_id').val());
+            console.log($('#min_editor').trumbowyg('html'));
+
+            $.ajax({
+                url: '../new_job/',
+                method: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    job_name: $('#job_name_id').val(),
+                    job_category_id: $('#fetch_job_categories').val(),
+                    job_location_id: $('#job_location_id').val(),
+                    skills: $('#skill_id').val(),
+                    job_content: $('#min_editor').trumbowyg('html'),
+                    is_draft: is_draft_condition
+                },
+                success: function (data) {
+                    console.log(data);
+                    window.location.href = '../jobs/'
+                }
+
+            });
+
+        }
+
+        $('#post_job').on('click', function () {
+
+            sendPostJobData(1);
+
+        });
+
+        $('#save_draft').on('click', function () {
+
+            sendPostJobData(2);
+
+        })
+
+    });
+
+</script>
+
+
+</body>
+</html>

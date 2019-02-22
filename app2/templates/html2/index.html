@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>HelloMeets Job Board - Candidate Jobs Page</title>
+    <title>HelloMeets Job Board</title>
 
     <style>
         body {
@@ -55,17 +55,11 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Jobs <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="../candidate/register/">Find A Job</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../profile/">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../settings/">Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../logout/">Logout</a>
+                <a class="nav-link" href="../employer/register/">Post A Job</a>
             </li>
         </ul>
     </div>
@@ -76,11 +70,10 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>Available Jobs</h3>
-        <span class="main-heading-small">
-            These jobs are getting displayed based on your preference.<br />
-            You can update your preferences <a href="../onboard/">here.</a>
-        </span>
+        <h3>HelloMeets JobBoard</h3>
+        <!--<span class="main-heading-small">
+            If you are looking for a job. <a href="#">Click here</a>.
+                </span> -->
     </div>
 
     <div class="row">
@@ -96,24 +89,14 @@
 
             <hr/>
 
-            <div class="container">
+            <div class="container main-heading">
 
-                {% for job in all_jobs %}
-
-                    <div class="card">
-                        <div class="card-body">
-                            <b>{{ job.job_name }}</b>
-                            <br />
-                            <div class="skill_badge_container">
-                                <span class="badge badge-light">HTML</span>
-                                <span class="badge badge-light">CSS</span>
-                                <span class="badge badge-light">JavaScript</span>
-                            </div>
-                            <a target="_blank" href="../../../job/{{ job.job_slug }}">View Job</a>
-                        </div>
-                    </div>
-
-                {% endfor %}
+                <h2>
+                    <a href="../candidate/register/">Find A Job</a>
+                </h2>
+                <h2>
+                    <a href="../employer/register/">Post A Job</a>
+                </h2>
 
             </div>
 
@@ -143,8 +126,6 @@
     $(document).ready(function () {
 
         console.log('this page is working!');
-
-
 
     })
 
