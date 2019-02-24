@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>HelloMeets Job Board - {{ job_name }} at {{ company_name }}</title>
+
+    <style>
+        body {
+            color: #3d3d3d;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #alert-area {
+            margin-top: 70px;
+        }
+
+        .main-heading {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .main-heading-small {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .job-apply-area {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .social-signup-button {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .social-signup-button-center {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">HelloMeets - Job Board</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../register/">Signup</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="../login/">Login <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Employers</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+
+    <div id="alert-area"></div>
+
+    <div class="container main-heading">
+        <h3>Candidates applied for <b>{{ job_name }}</b> position</h3>
+        <span class="main-heading-small">
+            Location: {{ job_location }}
+                </span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <!--
+            <div class="container social-signup-button">
+                <button type="button" class="btn btn-outline-primary">Google Signup</button>
+            </div>
+            <div class="container social-signup-button">
+                <button type="button" class="btn btn-outline-primary">Linkedin Signup</button>
+            </div> -->
+
+            <hr/>
+
+            <div class="container" style="text-align: justify;">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>First Name</td>
+                            <td>Email</td>
+                            <td>Applied on</td>
+                            <td>view resume</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in candidate_data %}
+
+                            <tr>
+                                <td>{{ c.first_name }}</td>
+                                <td>{{ c.email }}</td>
+                                <td>{{ c.applied_on }}</td>
+                                <td><a href="{{ c.resume_link }}">resume link</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+
+
+</main>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        console.log('this page is working!');
+
+    })
+
+</script>
+
+
+</body>
+</html>

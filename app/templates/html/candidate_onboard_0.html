@@ -64,14 +64,8 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Employers</a>
+                <a class="nav-link" href="../logout/">Logout</a>
             </li>
         </ul>
     </div>
@@ -222,6 +216,14 @@
                     title : secondary_skill.fields.name
                 })
 
+            });
+
+            JSON.parse(data.fetched_data.user_skills).forEach(function(user_skill){
+                console.log(user_skill);
+                options.push({
+                    id: 'usd_' + user_skill.fields.skill_id.toString(),
+                    title: user_skill.fields.name
+                })
             });
 
             $('#skill_id').selectize({

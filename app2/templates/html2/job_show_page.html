@@ -107,6 +107,8 @@
 
             </div>
 
+            <hr />
+
             <div class="job-apply-area">
 
                 {% if request.user.is_authenticated %}
@@ -147,6 +149,22 @@
     $(document).ready(function () {
 
         console.log('this page is working!');
+
+        $('#apply_job').on('click', function(){
+
+            $.ajax({
+                url: '../../employer/api/v1/apply_job/',
+                method: 'POST',
+                data: {
+                    job_id: '{{ job_id }}',
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success: function(data){
+                    alert(data);
+                }
+            })
+
+        })
 
     })
 

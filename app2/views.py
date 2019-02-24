@@ -3,7 +3,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from app2.core.auth_modules.validate_signup import ValidateSignup
 from app2.core.job_modules.store_new_job import StoreNewJob
-from app2.models import CompanyDetails, JobPost, JobSkills
+from app2.models import CompanyDetails, JobPost, JobSkills, JobApplicants
+from app.models import CandidateFields
 
 # Create your views here.
 
@@ -12,7 +13,19 @@ def index_page(request):
 
     if request.method == 'GET':
 
-        return render(request, 'html2/index.html')
+        if request.user.is_authenticated:
+
+            if CandidateFields.objects.filter(user_id__username=request.user.username).exists():
+
+                return redirect('candidate/jobs/')
+
+            if CompanyDetails.objects.filter(company_id__username=request.user.username).exists():
+
+                return redirect('employer/jobs/')
+
+        else:
+
+            return render(request, 'html2/index.html')
 
     else:
 
@@ -107,7 +120,8 @@ def job_show_page(request):
                 'job_name': job_post.job_name,
                 'company_name': job_post.job_id.company_name,
                 'job_location': job_post.job_location_id,
-                'job_description': job_post.job_description
+                'job_description': job_post.job_description,
+                'job_id': job_post.id
             })
 
         else:
@@ -115,6 +129,36 @@ def job_show_page(request):
             return HttpResponse(404)
 
     if request.method == 'POST':
+
+        return HttpResponse(401)
+
+
+def show_candidates(request):
+
+    if request.method == 'GET':
+
+        if 'job_id' in request.GET:
+
+            if JobPost.objects.filter(job_id__company_id__username=request.user.username).exists() and JobPost.objects.filter(id=int(request.GET['job_id'])).exists():
+
+                candidates_dict = []
+
+                for candidate in JobApplicants.objects.filter(job_id=int(request.GET['job_id'])):
+
+                    candidates_dict.append({
+                        'first_name':  CandidateFields.objects.get(user_id__email=candidate.applicant_email).user_id.first_name,
+                        'email': candidate.applicant_email,
+                        'applied_on': candidate.applied_on,
+                        'resume_link': '../../../static/resumes/' + CandidateFields.objects.get(user_id__email=candidate.applicant_email).resume_file_name
+                    })
+
+                return render(request, 'html2/view_candidates.html', {
+                    'candidate_data': candidates_dict,
+                    'job_name': JobPost.objects.get(job_id__company_id__username=request.user.username).job_name,
+                    'job_location': JobPost.objects.get(job_id__company_id__username=request.user.username).job_location_id
+                })
+
+    else:
 
         return HttpResponse(401)
 

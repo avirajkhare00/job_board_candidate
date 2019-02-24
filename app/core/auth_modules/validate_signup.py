@@ -51,7 +51,7 @@ class ValidateSignup:
 
         if re.match("^[a-zA-Z0-9_.-]+$", self.post_data['candidate_username']) is None:
 
-            return 'invalid username'
+            return 'invalid_username'
 
         else:
 

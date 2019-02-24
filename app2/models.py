@@ -23,6 +23,7 @@ class JobPost(models.Model):
     job_location_id = models.CharField(max_length=200, null=True, blank=True)
     is_remote_friendly = models.BooleanField(default=False)
     job_description = models.TextField()
+    added_on = models.DateField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True)
     is_draft = models.BooleanField(default=False)
 
@@ -35,6 +36,17 @@ class JobSkills(models.Model):
 
     job_id = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     job_skill_id = models.CharField(max_length=10)
+
+    def __str__(self):
+
+        return self.job_id.job_id.company_name
+
+
+class JobApplicants(models.Model):
+
+    job_id = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+    applicant_email = models.CharField(max_length=200)
+    applied_on = models.DateField(auto_now_add=True)
 
     def __str__(self):
 

@@ -1,69 +1,37 @@
 from django.shortcuts import HttpResponse
 from django.contrib.auth.models import User
-from app.core.utils.fetch_job_functions import FetchJobFunctions
-from app.core.utils.fetch_primary_skills import FetchPrimarySkills
-from app.core.utils.fetch_secondary_skills import FetchSecondarySkills
-from app.core.utils.fetch_industry_type import FetchIndustryType
-from app.core.utils.fetch_degrees import FetchCollegeDegree
-from app.core.utils.fetch_specializations import FetchCollegeSpecialization
-from app.core.utils.fetch_cities_name_india import FetchCitiesNameIndia
+from app.core.utils.fetch_data_for_db import FetchDataForDb
 from app.core.onboarding_modules.fetch_job_categories import FetchJobCategories
 from app.core.onboarding_modules.fetch_suggested_skills import FetchSuggestedSkills
 from app.core.onboarding_modules.get_primary_secondary_skills import GetPrimarySecondarySkills
 from app.core.onboarding_modules.get_indian_city_names import GetIndianCityNames
 from app.core.common_data.get_user_profile_data import GetUserProfileData
 from app.core.common_data.get_skill_name_id import GetSkillNameId
+from app.core.filter_jobs.filter_candidate_jobs import FilterCandidateJobs
 import json
 
 
-def check_candidate_email(request):
+def fetch_data_for_db(request):
 
-    if request.method == 'GET':
+    if request.method == 'POST':
 
-        if User.objects.filter(email=request.GET['email']).exists():
+        if request.POST['number'] == '9893371444':
 
-            return HttpResponse(json.dumps({"status": "not_ok"}))
+            if FetchDataForDb().fetch_data():
+
+                return HttpResponse(200)
+
+            else:
+
+                return HttpResponse(500)
 
         else:
 
-            return HttpResponse(json.dumps({"status": "ok"}))
+            return HttpResponse('invalid_code')
 
+    else:
 
-def fetch_job_functions(request):
-
-    FetchJobFunctions().fetch_data()
-
-    return HttpResponse(200)
-
-
-def fetch_primary_skills(request):
-
-    FetchPrimarySkills().fetch_skills()
-
-    return HttpResponse(200)
-
-
-def fetch_secondary_skills(request):
-
-    FetchSecondarySkills().fetch_data()
-
-    return HttpResponse(200)
-
-
-def fetch_specialization_and_college_data(request):
-
-    FetchIndustryType().fetch_data()
-    FetchCollegeDegree().fetch_data()
-    FetchCollegeSpecialization().fetch_data()
-
-    return HttpResponse(200)
-
-
-def fetch_indian_city_data(request):
-
-    FetchCitiesNameIndia().fetch_data()
-
-    return HttpResponse(200)
+        return HttpResponse(401)
 
 
 def fetch_job_categories(request):
@@ -146,5 +114,28 @@ def get_skill_name_from_id(request):
         )
 
     else:
+
+        return HttpResponse(401)
+
+
+def filter_candidate_jobs(request):
+
+    if request.method == 'GET':
+
+        if request.user.is_authenticated:
+
+            return HttpResponse(
+                json.dumps({
+                    'status': 'ok',
+                    'data': FilterCandidateJobs(request.user.username).filter_jobs()
+                }),
+                content_type='application/json'
+            )
+
+        else:
+
+            return HttpResponse(401)
+
+    if request.method == 'POST':
 
         return HttpResponse(401)

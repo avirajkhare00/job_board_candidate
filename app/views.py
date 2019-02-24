@@ -28,7 +28,7 @@ def register_page(request):
 
             return redirect('../onboard/?page=1')
 
-        return render(request, 'html/register.html')
+        return render(request, 'html/register.html', {'status':signup_status})
 
 
 def login_user(request):

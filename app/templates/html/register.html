@@ -59,10 +59,7 @@
                 <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Employers</a>
+                <a class="nav-link" href="../login/">Login</a>
             </li>
         </ul>
     </div>
@@ -98,9 +95,9 @@
                     {% csrf_token %}
 
                     <div class="form-group">
-                        <label for="candidate_name_id">Your Name</label>
+                        <label for="candidate_name_id">Your Full Name</label>
                         <input type="text" name="candidate_name" class="form-control" id="candidate_name_id"
-                               placeholder="Your Name" required/>
+                               placeholder="Your Full Name" required/>
                     </div>
                     <div class="form-group">
                         <label for="candidate_username_id">Your Username</label>
@@ -153,20 +150,127 @@
 
         console.log('this page is working!');
 
-        var status = {{ status }};
+        var status = '{{ status }}';
 
-        if (status == 'email_exists') {
-
-            //append failure notification
+        if(status == 'no_name'){
             $('#alert-area').append(
                 '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                '<strong>Error!</strong> This email has already been taken.' +
+                '<strong>Error!</strong> Name field is empty.' +
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                 '<span aria-hidden="true">&times;</span>' +
                 '</button>' +
                 '</div>'
             )
+        }
 
+        if(status == 'no_email'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> email field is empty.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'no_password'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> password field is empty.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'no_username'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> username field is empty.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'username_exists'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> username is already taken.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'username_short'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> username is too short.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'email_exists'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> This email has already exists.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'password_short'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> password is too short.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'no_full_name'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> Please provide full name.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'invalid_email'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> This email is invalid.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
+        if(status == 'invalid_username'){
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong> This username is invalid.' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
         }
 
     })

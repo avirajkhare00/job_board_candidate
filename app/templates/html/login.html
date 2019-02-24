@@ -61,9 +61,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="../login/">Login <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Employers</a>
-            </li>
         </ul>
     </div>
 </nav>
@@ -143,14 +140,22 @@
 
         console.log('this page is working!');
 
-        var status = {{ status }};
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
 
-        if (status == 'email_exists') {
+        if (getParameterByName('error') == 'wrong_credentials') {
 
             //append failure notification
             $('#alert-area').append(
                 '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                '<strong>Error!</strong> This email has already been taken.' +
+                '<strong>Error!</strong> Email or password is incorrect.' +
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                 '<span aria-hidden="true">&times;</span>' +
                 '</button>' +

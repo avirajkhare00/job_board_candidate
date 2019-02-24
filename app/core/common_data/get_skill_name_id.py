@@ -49,7 +49,7 @@ class GetSkillNameId:
                     'status': 'not_found'
                 }
 
-        if self.skill_category == 'us':
+        if self.skill_category == 'usd':
 
             if UserGeneratedSkills.objects.filter(skill_id=self.skill_id_int).exists():
 
