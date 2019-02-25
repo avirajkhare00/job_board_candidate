@@ -1,3 +1,5 @@
+# following class is deprecated
+
 import json
 from app.models import PrimarySkills, JobName
 
@@ -19,11 +21,8 @@ class FetchPrimarySkills:
 
             if skill['name'].lower() not in self.unique_list:
 
-                job = JobName.objects.get(job_name_id=int(skill['job_function'].split('/')[-1]))
-
                 new_skill = PrimarySkills()
 
-                new_skill.associated_to_job = job
                 new_skill.primary_skill_id = int(skill['id'])
                 new_skill.name = skill['name']
 

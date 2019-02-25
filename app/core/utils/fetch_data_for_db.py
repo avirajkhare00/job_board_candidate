@@ -1,6 +1,7 @@
 from app.core.utils.fetch_job_functions import FetchJobFunctions
 from app.core.utils.fetch_primary_skills import FetchPrimarySkills
 from app.core.utils.fetch_secondary_skills import FetchSecondarySkills
+from app.core.utils.fetch_primary_secondary_skills import FetchPrimarySecondarySkills
 from app.core.utils.fetch_industry_type import FetchIndustryType
 from app.core.utils.fetch_degrees import FetchCollegeDegree
 from app.core.utils.fetch_specializations import FetchCollegeSpecialization
@@ -13,9 +14,11 @@ class FetchDataForDb:
 
         FetchJobFunctions().fetch_data()
 
-        FetchPrimarySkills().fetch_skills()
+        #FetchPrimarySkills().fetch_skills()
 
-        FetchSecondarySkills().fetch_data()
+        #FetchSecondarySkills().fetch_data()
+
+        FetchPrimarySecondarySkills().push_to_db()# this function is equivalent to both above functions.
 
         FetchIndustryType().fetch_data()
 

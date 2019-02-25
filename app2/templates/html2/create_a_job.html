@@ -33,7 +33,7 @@
         }
 
         .skill_badge_container {
-            margin: 5px;
+            margin: 10px;
         }
 
         .margin-span {
@@ -70,13 +70,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../jobs/">Job <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="../new_job/">New Job</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Employers</a>
+                <a class="nav-link disabled" href="../logout/">Logout</a>
             </li>
         </ul>
     </div>
@@ -112,28 +112,7 @@
 
                     <h4 style="text-align: center;">Jobs Posted</h4>
 
-                <div class="container">
-
-                    {% for job in all_jobs_posted %}
-
-                    <div class="card">
-                        <div class="card-body">
-                            <b>{{ job.job_name }}</b>
-                            <br />
-                            <div class="skill_badge_container">
-                                <span class="badge badge-light">HTML</span>
-                                <span class="badge badge-light">CSS</span>
-                                <span class="badge badge-light">JavaScript</span>
-                            </div>
-                            <a href="../edit_job/{{ job.id }}">edit job</a>
-                            <br />
-                            <a href="../view_candidates/?job_id={{ job.id }}">View Candidates</a>
-                            <br />
-                            <a href="#">deactivate job</a>
-                        </div>
-                    </div>
-
-                    {% endfor %}
+                <div id="show_posted_jobs" class="container">
 
                 </div>
 
@@ -169,11 +148,60 @@
 
         console.log('this page is working!');
 
+        function skill_maker(skill_array){
+            let skill_dom = '';
+            skill_array.forEach(function(skill){
+                skill_dom += '<span class="badge badge-light">' + skill.skill_name + '</span>';
+            });
+            return skill_dom;
+        }
+
+        function appendJobToDom(job_array){
+
+            console.log(job_array);
+
+            job_array.forEach(function(job_id){
+
+                $.get('../api/v1/fetch_job_by_id/?job_id=' + job_id, function(job_data){
+
+                    $('#show_posted_jobs').append(
+
+                        '<div class="card">' +
+                        '<div class="card-body">' +
+                            '<b>' + job_data.data.job_name + '</b>' +
+                            '<br />' +
+                            '<div class="skill_badge_container">' +
+                                skill_maker(job_data.data.skills) +
+                            '</div>' +
+                            '<a href="../edit_job/' + job_data.data.id + '">edit job</a>' +
+                            '<br />' +
+                            '<a href="../view_candidates/?job_id=' + job_data.data.id + '">View Candidates</a>' +
+                            '<br />' +
+                            '<a href="#">deactivate job</a>' +
+                        '</div>' +
+                    '</div>'
+
+                    )
+
+                })
+
+            })
+
+        }
+
         $('#add_job_btn').on('click', function(){
 
             window.location.href = '../new_job/'
 
-    })
+        });
+
+        $.get('../api/v1/fetch_job_ids/', function(data){
+
+            if(data.data.status){
+                appendJobToDom(data.data.job_ids);
+            }
+        })
+
     });
 
 </script>

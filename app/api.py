@@ -1,5 +1,6 @@
 from django.shortcuts import HttpResponse
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from app.core.utils.fetch_data_for_db import FetchDataForDb
 from app.core.onboarding_modules.fetch_job_categories import FetchJobCategories
 from app.core.onboarding_modules.fetch_suggested_skills import FetchSuggestedSkills
@@ -8,9 +9,11 @@ from app.core.onboarding_modules.get_indian_city_names import GetIndianCityNames
 from app.core.common_data.get_user_profile_data import GetUserProfileData
 from app.core.common_data.get_skill_name_id import GetSkillNameId
 from app.core.filter_jobs.filter_candidate_jobs import FilterCandidateJobs
+from app.core.data_components.get_job_by_id import GetJobById
 import json
 
 
+@csrf_exempt
 def fetch_data_for_db(request):
 
     if request.method == 'POST':
@@ -47,7 +50,7 @@ def fetch_job_categories(request):
 
         return HttpResponse(401)
 
-
+# following function is deprecated
 def get_suggested_skills(request):
 
     if request.user.is_authenticated:
@@ -120,7 +123,7 @@ def get_skill_name_from_id(request):
 
 def filter_candidate_jobs(request):
 
-    if request.method == 'GET':
+    if request.method == 'POST':
 
         if request.user.is_authenticated:
 
@@ -136,6 +139,32 @@ def filter_candidate_jobs(request):
 
             return HttpResponse(401)
 
-    if request.method == 'POST':
+    if request.method == 'GET':
 
         return HttpResponse(401)
+
+
+def get_job_by_id(request):
+
+    if request.method == 'GET':
+
+        if request.user.is_authenticated:
+
+            if 'job_id' in request.GET:
+
+                return HttpResponse(
+                    json.dumps({
+                        'status': 'ok',
+                        'data': GetJobById(request.GET['job_id']).get_data()
+                    }),
+                    content_type='application/json'
+                )
+
+            else:
+
+                return HttpResponse(
+                    json.dumps({
+                        'status': 'no_job_id'
+                    }),
+                    content_type='application/json'
+                )

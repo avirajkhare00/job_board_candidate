@@ -17,13 +17,13 @@ class FilterCandidateJobs:
 
         current_position = CandidateFields.objects.get(user_id__username=self.username).candidate_job_id
 
-        all_job_posts = JobPost.objects.filter(job_name_id=current_position)
+        all_job_posts = JobPost.objects.filter(job_name_id=current_position, is_active=True)
 
         all_jobs_by_skills = []
 
         for skill in CandidateSkills.objects.filter(user_id__user_id__username=self.username):
 
-            all_jobs_by_skills.append(JobSkills.objects.filter(job_skill_id=skill.skill_id))
+            all_jobs_by_skills.append(JobSkills.objects.filter(job_skill_id=skill.skill_id, job_id__is_active=True))
 
         for job in all_job_posts:
 

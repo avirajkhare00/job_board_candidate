@@ -1,3 +1,5 @@
+# following code is deprecated
+
 import json
 from app.models import PrimarySkills, SecondarySkills
 
@@ -20,11 +22,8 @@ class FetchSecondarySkills:
 
             if sskill['name'].lower() not in self.unique_list:
 
-                primary_skill = PrimarySkills.objects.get(primary_skill_id=int(sskill['primary_skill'].split('/')[-1]))
-
                 new_s_skill = SecondarySkills()
 
-                new_s_skill.associated_to_primary_skill = primary_skill
                 new_s_skill.secondary_skill_id = int(sskill['id'])
                 new_s_skill.name = sskill['name']
 

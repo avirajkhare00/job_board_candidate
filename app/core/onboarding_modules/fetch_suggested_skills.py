@@ -1,5 +1,8 @@
+# this class is deprecated
+
 from app.models import PrimarySkills, SecondarySkills
 from django.core import serializers
+
 
 class FetchSuggestedSkills:
 

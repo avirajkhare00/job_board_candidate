@@ -25,11 +25,10 @@ class GetPrimarySecondarySkills:
             fields=('secondary_skill_id','name')
         )
 
-        if len(UserGeneratedSkills.objects.all()):
-
-            self.data['fetched_data']['user_skills'] = serializers.serialize(
-                'json',
-                UserGeneratedSkills.objects.all()
-            )
+        self.data['fetched_data']['user_skills'] = serializers.serialize(
+            'json',
+            UserGeneratedSkills.objects.all(),
+            fields=('skill_id','name')
+        )
 
         return self.data

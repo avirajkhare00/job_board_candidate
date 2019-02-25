@@ -32,6 +32,10 @@
             font-size: 12px;
         }
 
+        .skill_badge_container {
+            margin: 10px;
+        }
+
         .social-signup-button {
             margin: 10px;
             text-align: center;
@@ -96,24 +100,7 @@
 
             <hr/>
 
-            <div class="container">
-
-                {% for job in all_jobs %}
-
-                    <div class="card">
-                        <div class="card-body">
-                            <b>{{ job.job_name }}</b>
-                            <br />
-                            <div class="skill_badge_container">
-                                <span class="badge badge-light">HTML</span>
-                                <span class="badge badge-light">CSS</span>
-                                <span class="badge badge-light">JavaScript</span>
-                            </div>
-                            <a target="_blank" href="../../../job/{{ job.job_slug }}">View Job</a>
-                        </div>
-                    </div>
-
-                {% endfor %}
+            <div id="job_area" class="container">
 
             </div>
 
@@ -144,7 +131,49 @@
 
         console.log('this page is working!');
 
+        function skill_maker(skill_array){
+            let skill_dom = '';
+            skill_array.forEach(function(skill){
+                skill_dom += '<span class="badge badge-light">' + skill.skill_name + '</span>';
+            });
+            return skill_dom;
+        }
 
+        function jobArray(job_array){
+
+            job_array.forEach(function(job_id){
+
+                $.get('../api/v1/get_job_by_id/?job_id=' + job_id, function(job_object){
+
+                    if(job_object.status == 'ok'){
+                        $('#job_area').append(
+                            '<div class="card">' +
+                                '<div class="card-body">' +
+                                    '<b>' + job_object.data.job_name + '</b>' +
+                                    '<br />' +
+                                    '<div class="skill_badge_container">' +
+                                        skill_maker(job_object.data.skills) +
+                                    '</div>' +
+                                    '<a target="_blank" href="../../../job/' + job_object.data.job_slug + '">View Job</a>' +
+                                '</div>' +
+                            '</div>'
+                        )
+                    }
+                })
+
+            })
+        }
+
+        $.ajax({
+            url: '../api/v1/filter_candidate_jobs/',
+            method: 'POST',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data){
+                jobArray(data.data);
+            }
+        })
 
     })
 

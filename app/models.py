@@ -55,7 +55,6 @@ class JobName(models.Model):
 
 class PrimarySkills(models.Model):
 
-    associated_to_job = models.ForeignKey(JobName, on_delete=models.CASCADE)
     primary_skill_id = models.IntegerField()
     name = models.CharField(max_length=200)
 
@@ -66,7 +65,6 @@ class PrimarySkills(models.Model):
 
 class SecondarySkills(models.Model):
 
-    associated_to_primary_skill = models.ForeignKey(PrimarySkills, on_delete=models.CASCADE)
     secondary_skill_id = models.IntegerField()
     name = models.CharField(max_length=200)
 
