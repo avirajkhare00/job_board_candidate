@@ -162,7 +162,7 @@ class StoreOnboardingUserData:
 
                 candidate_resume = self.request.FILES['candidate_resume']
 
-                fs = FileSystemStorage(location='app/static/resumes/')
+                fs = FileSystemStorage(location='static/resumes/')
 
                 filename = fs.save(candidate_resume.name, candidate_resume)
 

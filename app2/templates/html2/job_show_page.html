@@ -63,16 +63,16 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../jobs/">Jobs <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="../candidate/jobs/">Jobs <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../profile/">Profile</a>
+                        <a class="nav-link" href="../candidate/profile/">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../settings/">Settings</a>
+                        <a class="nav-link" href="../candidate/settings/">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../logout/">Logout</a>
+                        <a class="nav-link" href="../candidate/logout/">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -181,7 +181,10 @@
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                 },
                 success: function(data){
-                    alert(data);
+                    //alert(data);
+                    if(data == 'ok'){
+                        alert('Thanks! Your job application has been sent.')
+                    }
                 }
             })
 
