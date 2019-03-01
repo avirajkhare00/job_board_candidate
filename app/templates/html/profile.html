@@ -173,7 +173,8 @@
             $('#current_location').text(profile_data.current_location_value);
 
             profile_data.candidate_interested_cities.forEach(function(city){
-                $('#interested_location').append(city+', ')
+                //$('#interested_location').append(city+', ')
+                $('#interested_location').append('<span class="badge badge-secondary">' + city + '</span>')
             });
 
             $('#primary_role').text(profile_data.candidate_job_title);
@@ -181,7 +182,8 @@
             profile_data.candidate_skill_ids.forEach(function(skill_id){
                 $.get('../api/v1/get_skill_name_id/?skill_id='+skill_id, function(skill_name_json){
 
-                    $('#skills').append(skill_name_json.skill_name+', ')
+                    //$('#skills').append(skill_name_json.skill_name+', ')
+                    $('#skills').append('<span class="badge badge-secondary">' + skill_name_json.skill_name + '</span>')
 
                 })
             });
