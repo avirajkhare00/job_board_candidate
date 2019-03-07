@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/trumbowyg.min.css' %}"
 
-    <title>HelloMeets Job Board - Company Jobs</title>
+    <title>HelloMeets Job Board - Recruiter Posted Jobs</title>
 
     <style>
         body {
@@ -87,7 +87,7 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>{{ company_name }} has {{ active_job_number }} active Jobs</h3>
+        <h3>You posted {{ active_job_number }} Jobs</h3>
     </div>
 
     <div class="row">
@@ -164,11 +164,13 @@
 
                 $.get('../api/v1/fetch_job_by_id/?job_id=' + job_id, function(job_data){
 
+                    console.log(job_data);
+
                     $('#show_posted_jobs').append(
 
                         '<div class="card">' +
                         '<div class="card-body">' +
-                            '<a href="' + '../../../job/' + job_data.data.job_slug + '/" target="_blank">' + '<b>' + job_data.data.job_name + '</b>' + '</a>' +
+                                '<a href="' + '../../../job/' + job_data.data.job_slug + '/" target="_blank">' + '<b>' + job_data.data.job_name + '</b>' + '</a>' +
                             '<br />' +
                             '<div class="skill_badge_container">' +
                                 skill_maker(job_data.data.skills) +
@@ -191,11 +193,11 @@
 
         $('#add_job_btn').on('click', function(){
 
-            window.location.href = '../new_job/'
+            window.location.href = '../recruiter_job_add_page/'
 
         });
 
-        $.get('../api/v1/fetch_job_ids/', function(data){
+        $.get('../api/v1/fetch_recruiter_job_ids/', function(data){
 
             if(data.data.status){
                 appendJobToDom(data.data.job_ids);

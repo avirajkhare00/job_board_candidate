@@ -1,4 +1,5 @@
 from app2.models import JobPost, JobSkills, CompanyDetails
+from app.models import UserGeneratedSkills
 
 
 class StoreNewJob:
@@ -53,11 +54,29 @@ class StoreNewJob:
 
         for i in self.post_data.getlist('skills[]'):
 
-            job_skill = JobSkills()
+            if i.split('_')[0] == 'us':
 
-            job_skill.job_id = new_job
-            job_skill.job_skill_id = i
+                new_skill = UserGeneratedSkills()
 
-            job_skill.save()
+                new_skill.skill_id = len(UserGeneratedSkills.objects.all()) + 1
+                new_skill.name = i.split('_')[1]
+
+                new_skill.save()
+
+                new_new_skill = JobSkills()
+
+                new_new_skill.job_id = new_job
+                new_new_skill.job_skill_id = 'us_' + str(new_skill.skill_id)
+
+                new_new_skill.save()
+
+            else:
+
+                job_skill = JobSkills()
+
+                job_skill.job_id = new_job
+                job_skill.job_skill_id = i
+
+                job_skill.save()
 
         return 'ok'

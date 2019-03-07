@@ -1,6 +1,6 @@
 from django.shortcuts import HttpResponse, redirect
 from app.models import CandidateFields
-from app2.models import JobPost, CompanyDetails
+from app2.models import JobPost, CompanyDetails, HomeRecruiter, JobsByRecruiter
 from app2.core.data_components.fetch_job_ids import FetchJobIds
 from app2.core.job_modules.job_applicant_logic import JobApplicantLogin
 from app2.core.data_components.fetch_job_by_id import FetchJobById
@@ -55,7 +55,7 @@ def fetch_job_by_id(request):
 
         if request.user.is_authenticated:
 
-            if CompanyDetails.objects.filter(company_id__username=request.user.username):
+            if CompanyDetails.objects.filter(company_id__username=request.user.username) or HomeRecruiter.objects.filter(recruiter_id__username=request.user.username).exists():
 
                 if 'job_id' in request.GET:
 
@@ -70,6 +70,15 @@ def fetch_job_by_id(request):
                                 content_type='application/json'
                             )
 
+                        if JobsByRecruiter.objects.filter(job_id=int(request.GET['job_id'])).exists():
+
+                            if JobsByRecruiter.objects.get(job_id=int(request.GET['job_id'])).recruiter_id.recruiter_id.username == request.user.username:
+
+                                return HttpResponse(json.dumps({
+                                    'data': FetchJobById(request.GET['job_id']).get_data()
+                                    }),
+                                    content_type='application/json'
+                                )
                         else:
 
                             return HttpResponse(401)

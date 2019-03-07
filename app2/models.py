@@ -51,3 +51,23 @@ class JobApplicants(models.Model):
     def __str__(self):
 
         return self.job_id.job_id.company_name
+
+
+class HomeRecruiter(models.Model):
+
+    recruiter_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    recruiter_activate = models.BooleanField(default=False)
+
+    def __str__(self):
+
+        return self.recruiter_id.username
+
+
+class JobsByRecruiter(models.Model):
+
+    recruiter_id = models.ForeignKey(HomeRecruiter, on_delete=models.CASCADE)
+    job_id = models.IntegerField()
+
+    def __str__(self):
+
+        return self.recruiter_id.recruiter_id.username

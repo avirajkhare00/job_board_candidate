@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from app2.core.auth_modules.validate_signup import ValidateSignup
 from app2.core.job_modules.store_new_job import StoreNewJob
-from app2.models import CompanyDetails, JobPost, JobSkills, JobApplicants
+from app2.models import CompanyDetails, JobPost, JobSkills, JobApplicants, HomeRecruiter
 from app.models import CandidateFields
 
 # Create your views here.
@@ -154,8 +154,27 @@ def show_candidates(request):
 
                 return render(request, 'html2/view_candidates.html', {
                     'candidate_data': candidates_dict,
-                    'job_name': JobPost.objects.get(job_id__company_id__username=request.user.username).job_name,
-                    'job_location': JobPost.objects.get(job_id__company_id__username=request.user.username).job_location_id
+                    'job_name': JobPost.objects.get(id=int(request.GET['job_id'])).job_name,
+                    'job_location': JobPost.objects.get(id=int(request.GET['job_id'])).job_location_id
+                })
+
+            if HomeRecruiter.objects.filter(recruiter_id__username=request.user.username).exists():
+
+                candidates_dict = []
+
+                for candidate in JobApplicants.objects.filter(job_id=int(request.GET['job_id'])):
+
+                    candidates_dict.append({
+                        'first_name':  CandidateFields.objects.get(user_id__email=candidate.applicant_email).user_id.first_name,
+                        'email': candidate.applicant_email,
+                        'applied_on': candidate.applied_on,
+                        'resume_link': '../../../static/resumes/' + CandidateFields.objects.get(user_id__email=candidate.applicant_email).resume_file_name
+                    })
+
+                return render(request, 'html2/view_candidates.html', {
+                    'candidate_data': candidates_dict,
+                    'job_name': JobPost.objects.get(id=int(request.GET['job_id'])).job_name,
+                    'job_location': JobPost.objects.get(id=int(request.GET['job_id'])).job_location_id
                 })
 
     else:

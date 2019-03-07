@@ -65,8 +65,6 @@ class StoreOnboardingUserData:
 
                         new_candidate_skills.user_id = old_candidate
 
-                        print(str(new_skill.skill_id))
-
                         new_candidate_skills.skill_id = 'us_' + str(new_skill.skill_id)
 
                         new_candidate_skills.save()
