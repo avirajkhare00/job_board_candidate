@@ -99,10 +99,10 @@
             <div class="container main-heading">
 
                 <h2>
-                    <a href="../candidate/register/">Find A Job</a>
+                    <a href="../candidate/register/">Find a job</a>
                 </h2>
                 <h2>
-                    <a href="../employer/register/">Post A Job</a>
+                    <a href="../employer/register/">Post a job</a>
                 </h2>
 
             </div>
@@ -156,12 +156,15 @@
 
                 $.get('../candidate/api/v1/get_job_by_id/?job_id=' + job_id, function(job_object){
 
+                    console.log(job_object)
+
                     if(job_object.status == 'ok'){
                         $('#job_area').append(
                             '<div class="card">' +
                                 '<div class="card-body">' +
                                     '<b>' + job_object.data.job_name + '</b>' +
                                     '<br />' +
+                                    job_object.data.company_name + '<br />' +
                                     '<div class="skill_badge_container">' +
                                         skill_maker(job_object.data.skills) +
                                     '</div>' +

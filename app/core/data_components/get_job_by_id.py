@@ -55,6 +55,7 @@ class GetJobById:
 
             self.job_data['status'] = 'ok'
             self.job_data['job_name'] = job.job_name
+            self.job_data['company_name'] = job.job_id.company_name
             self.job_data['job_location'] = job.job_location_id
             self.job_data['added_on'] = str(job.added_on)
             self.job_data['job_slug'] = job.job_slug
