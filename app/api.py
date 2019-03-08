@@ -148,23 +148,23 @@ def get_job_by_id(request):
 
     if request.method == 'GET':
 
-        if request.user.is_authenticated:
+        # removing authentication to get job from ids
 
-            if 'job_id' in request.GET:
+        if 'job_id' in request.GET:
 
-                return HttpResponse(
-                    json.dumps({
-                        'status': 'ok',
-                        'data': GetJobById(request.GET['job_id']).get_data()
-                    }),
-                    content_type='application/json'
-                )
+            return HttpResponse(
+                json.dumps({
+                    'status': 'ok',
+                    'data': GetJobById(request.GET['job_id']).get_data()
+                }),
+                content_type='application/json'
+            )
 
-            else:
+        else:
 
-                return HttpResponse(
-                    json.dumps({
-                        'status': 'no_job_id'
-                    }),
-                    content_type='application/json'
-                )
+            return HttpResponse(
+                json.dumps({
+                    'status': 'no_job_id'
+                }),
+                content_type='application/json'
+            )

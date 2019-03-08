@@ -41,6 +41,13 @@
             margin-top: 10px;
             text-align: center;
         }
+
+        .job-area-heading {
+            text-align: center;
+            font-size: 22px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
     </style>
 
 </head>
@@ -100,6 +107,14 @@
 
             </div>
 
+            <div class="container job-area-heading">
+                Recent Jobs posted
+            </div>
+
+            <div class="container" id="job_area">
+
+            </div>
+
         </div>
         <div class="col-md-3"></div>
 
@@ -126,6 +141,45 @@
     $(document).ready(function () {
 
         console.log('this page is working!');
+
+        function skill_maker(skill_array){
+            let skill_dom = '';
+            skill_array.forEach(function(skill){
+                skill_dom += '<span class="badge badge-light">' + skill.skill_name + '</span>';
+            });
+            return skill_dom;
+        }
+
+        function jobArray(job_array){
+
+            job_array.forEach(function(job_id){
+
+                $.get('../candidate/api/v1/get_job_by_id/?job_id=' + job_id, function(job_object){
+
+                    if(job_object.status == 'ok'){
+                        $('#job_area').append(
+                            '<div class="card">' +
+                                '<div class="card-body">' +
+                                    '<b>' + job_object.data.job_name + '</b>' +
+                                    '<br />' +
+                                    '<div class="skill_badge_container">' +
+                                        skill_maker(job_object.data.skills) +
+                                    '</div>' +
+                                    '<a target="_blank" href="../../../job/' + job_object.data.job_slug + '">View job</a>' +
+                                '</div>' +
+                            '</div>'
+                        )
+                    }
+                })
+
+            })
+        }
+
+        $.get('../../employer/api/v1/fetch_recent_job_ids/', function(data){
+
+            jobArray(data.data.job_ids);
+
+        })
 
     })
 

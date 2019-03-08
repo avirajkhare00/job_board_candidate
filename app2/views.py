@@ -13,21 +13,9 @@ def index_page(request):
 
     if request.method == 'GET':
 
-        if request.user.is_authenticated:
+        return render(request, 'html2/index.html')
 
-            if CandidateFields.objects.filter(user_id__username=request.user.username).exists():
-
-                return redirect('candidate/jobs/')
-
-            if CompanyDetails.objects.filter(company_id__username=request.user.username).exists():
-
-                return redirect('employer/jobs/')
-
-        else:
-
-            return render(request, 'html2/index.html')
-
-    else:
+    if request.method == 'POST':
 
         return HttpResponse(401)
 

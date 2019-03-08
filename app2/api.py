@@ -4,6 +4,7 @@ from app2.models import JobPost, CompanyDetails, HomeRecruiter, JobsByRecruiter
 from app2.core.data_components.fetch_job_ids import FetchJobIds
 from app2.core.job_modules.job_applicant_logic import JobApplicantLogin
 from app2.core.data_components.fetch_job_by_id import FetchJobById
+from app2.core.data_components.fetch_recent_job_ids import FetchRecentJobIds
 import json
 
 
@@ -47,6 +48,21 @@ def fetch_job_ids(request):
         else:
 
             return HttpResponse(401)
+
+def fetch_recent_jobs(request):
+
+    if request.method == 'GET':
+
+        return HttpResponse(
+            json.dumps({
+                'data': FetchRecentJobIds().fetch_ids()
+            }),
+            content_type='application/json'
+        )
+
+    if request.method == 'POST':
+
+        return HttpResponse(401)
 
 
 def fetch_job_by_id(request):
