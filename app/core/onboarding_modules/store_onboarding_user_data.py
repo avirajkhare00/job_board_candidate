@@ -1,5 +1,5 @@
 from app.models import CandidateFields, CandidateSkills, UserGeneratedSkills, CandidateInterestedCities
-from django.core.files.storage import FileSystemStorage
+from app.core.onboarding_modules.save_pdf_file import SavePDFFile
 
 
 class StoreOnboardingUserData:
@@ -156,17 +156,7 @@ class StoreOnboardingUserData:
 
                     old_candidate.remote_working = False
 
-                # below is code to upload resume
-
-                candidate_resume = self.request.FILES['candidate_resume']
-
-                fs = FileSystemStorage(location='static/resumes/')
-
-                filename = fs.save(candidate_resume.name, candidate_resume)
-
-                uploaded_file_url = fs.url(filename)
-
-                old_candidate.resume_file_name = uploaded_file_url
+                old_candidate.resume_file_name = SavePDFFile(self.request.FILES['candidate_resume']).save_file()
 
                 old_candidate.current_location_id = self.post_data['current_city']
 
