@@ -18,9 +18,5 @@ class FetchRecentJobIds:
 
             self.job_id_data['job_ids'].append(job.id)
 
-            return self.job_id_data
+        return self.job_id_data
 
-        else:
-
-            self.job_id_data['status'] = False
-            return self.job_id_data

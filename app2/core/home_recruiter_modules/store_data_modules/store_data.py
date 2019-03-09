@@ -1,6 +1,8 @@
 from app2.models import CompanyDetails, JobPost, JobSkills, HomeRecruiter, JobsByRecruiter
 from app.models import UserGeneratedSkills
 from django.contrib.auth.models import User
+import random
+import string
 
 class StoreRecruiterJobData:
 
@@ -71,7 +73,7 @@ class StoreRecruiterJobData:
 
             new_job.job_id = company_object
             new_job.job_name = self.post_data['job_name']
-            new_job.job_slug = company_object.company_name.lower().replace(' ','-') + '-' + self.post_data['job_name'].lower().replace(' ','-')
+            new_job.job_slug = company_object.company_name.lower().replace(' ','-') + '-' + self.post_data['job_name'].lower().replace(' ','-') + '-' + ''.join([random.choice(string.ascii_letters + string.digits) for n in range(4)])# assuming that there would be rare chance that this will collide too
             new_job.job_name_id = int(self.post_data['job_category_id'])
             new_job.job_location_id = self.post_data['job_location_id']
             new_job.is_remote_friendly = False
