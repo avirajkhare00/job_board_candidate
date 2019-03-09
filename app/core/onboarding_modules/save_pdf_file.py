@@ -3,17 +3,17 @@
 
 from django.core.files.storage import FileSystemStorage
 from app.models import CandidateFields
-from secrets import choice
+import random
 import string
 
-# ''.join([choice(string.ascii_uppercase + string.digits) for _ in range(N)])
+# ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)])
 
 class SavePDFFile:
 
     def __init__(self, file_object):
 
         #there is very high probability that first time string will be unique
-        self.unique_string = ''.join([choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(6)]) + '.pdf'
+        self.unique_string = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(16)]) + '.pdf'
         self.condition = True
         self.file_object = file_object
 
@@ -23,7 +23,7 @@ class SavePDFFile:
         
             if CandidateFields.objects.filter(resume_file_name=self.unique_string).exists():
 
-                self.unique_string = ''.join([choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(10)]) + '.pdf'
+                self.unique_string = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(16)]) + '.pdf'
 
             else:
 
