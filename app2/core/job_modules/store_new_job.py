@@ -1,6 +1,6 @@
 from app2.models import JobPost, JobSkills, CompanyDetails
 from app.models import UserGeneratedSkills
-from secrets import choice
+import random
 import string
 
 
@@ -39,7 +39,7 @@ class StoreNewJob:
 
         new_job.job_id = company_id
         new_job.job_name = self.post_data['job_name']
-        new_job.job_slug = company_id.company_name.lower().replace(' ','-') + '-' + self.post_data['job_name'].lower().replace(' ','-') + ''.join([choice(string.ascii_lowercase + string.digits) for _ in range(4)]) + '.pdf'
+        new_job.job_slug = company_id.company_name.lower().replace(' ','-') + '-' + self.post_data['job_name'].lower().replace(' ','-') + ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(4)])# assuming that there would be rare chance that this will collide too
         new_job.job_name_id = int(self.post_data['job_category_id'])
         new_job.job_location_id = self.post_data['job_location_id']
         new_job.job_description = self.post_data['job_content']
