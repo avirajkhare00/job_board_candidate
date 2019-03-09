@@ -55,6 +55,11 @@
             margin-top: 10px;
             text-align: center;
         }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
     </style>
 
 </head>
@@ -76,7 +81,7 @@
                 <a class="nav-link" href="../new_job/">New Job</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="../logout/">Logout</a>
+                <a class="nav-link" href="../logout/">Logout</a>
             </li>
         </ul>
     </div>
@@ -173,11 +178,11 @@
                             '<div class="skill_badge_container">' +
                                 skill_maker(job_data.data.skills) +
                             '</div>' +
-                            '<a href="../edit_job/' + job_data.data.id + '">edit job</a>' +
+                            '<a href="../edit_job/' + job_data.data.id + '" class="disabled">edit job</a>' +
                             '<br />' +
                             '<a href="../view_candidates/?job_id=' + job_data.data.id + '">View Candidates</a>' +
                             '<br />' +
-                            '<a href="#">deactivate job</a>' +
+                            '<a href="#" class="disabled">deactivate job</a>' +
                         '</div>' +
                     '</div>'
 
