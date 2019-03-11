@@ -32,7 +32,7 @@ class FireFlow:
             SendMailSendGrid(
                 self.email,
                 "Thank you for subscribing HelloMeets Events.",
-                "Hello <b>" + self.first_name + "</b><br />You will receive upcoming event notification events around your city."
+                "Hello <b>" + self.first_name + "</b><br />Now you’ll receive notifications about events in your city."
             ).send_it()
 
         if self.flow_id == 4:
@@ -40,7 +40,7 @@ class FireFlow:
             SendMailSendGrid(
                 self.email,
                 "Thank you for completing your HelloMeets JobBoard Profile.",
-                "Hello <b>" + self.first_name + "</b><br />You will receive weekly job alerts based on your job preferences."
+                "Hello <b>" + self.first_name + "</b><br />You have successfully completed your HelloMeets Job Board Profile.<br />You will receive weekly job alerts based on your preferences."
             ).send_it()
 
         if self.flow_id == 5:
@@ -48,9 +48,16 @@ class FireFlow:
             SendMailSendGrid(
                 self.email,
                 "Welcome to HelloMeets JobBoard",
-                "Hello <b>" + self.first_name + "</b><br />Welcome to HelloMeets community. Please go ahed and post your first job."
+                "Hello <b>" + self.first_name + "</b><br />Welcome on board.<br />Thanks for being a part of the community and considering HelloMeets as one of your hiring channels."
             ).send_it()
 
+        if self.flow_id == 7:
+
+            SendMailSendGrid(
+                self.email,
+                "HelloMeets JobBoard - Password Changed",
+                "Hello <b>" + self.first_name + "</b><br />Your password is changed successfully."
+            ).send_it()
 
     def select_util_flow_and_fire(self, property_dict):
 
@@ -59,5 +66,5 @@ class FireFlow:
             SendMailSendGrid(
                 self.email,
                 "HelloMeets JobBoard Forget Password",
-                "Hello <b>" + self.first_name + "</b><br />Click <a href='https://jobboard.hellomeets.com/new_password/?s=" + property_dict['password_reset_link'] + ">here</a> to request your password."
-            )
+                "Hello <b>" + self.first_name + "</b><br />Click on this link to reset your password: <a href='https://jobboard.hellomeets.com/new_password/?s=" + property_dict['password_reset_link'] + "'>PASSWORD RESET LINK</a><br />If you did not request it, please ignore this mail."
+            ).send_it()
