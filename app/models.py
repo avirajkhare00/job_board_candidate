@@ -14,6 +14,7 @@ class CandidateFields(models.Model):
     resume_file_name = models.CharField(max_length=200, null=True, blank=True)
     event_subscribe = models.BooleanField(default=True)
     newsletter_subscribe = models.BooleanField(default=True)
+    welcome_email_sent = models.BooleanField(default=False)
 
     def __str__(self):
 

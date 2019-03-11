@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from app2.models import CompanyDetails
+from app.core.mail_modules.fire_flow import FireFlow
 import re
 
 class ValidateSignup:
@@ -83,5 +84,7 @@ class ValidateSignup:
             new_company.company_name = self.post_data['company_name']
 
             new_company.save()
+
+            FireFlow(new_user.first_name, new_user.email, 5).select_flow_and_fire()
 
             return 'ok'

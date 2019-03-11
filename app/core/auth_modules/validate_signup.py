@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from app.core.mail_modules.fire_flow import FireFlow
 import re
 
 class ValidateSignup:
@@ -67,5 +68,8 @@ class ValidateSignup:
             new_user.set_password(self.post_data['candidate_password'])
 
             new_user.save()
+
+            #inserting fire_flow to send transactional email
+            FireFlow(new_user.first_name, new_user.email, 1).select_flow_and_fire()
 
             return 'ok'

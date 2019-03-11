@@ -1,5 +1,6 @@
 from app.models import CandidateFields, CandidateSkills, UserGeneratedSkills, CandidateInterestedCities
 from app.core.onboarding_modules.save_pdf_file import SavePDFFile
+from app.core.mail_modules.fire_flow import FireFlow
 
 
 class StoreOnboardingUserData:
@@ -212,6 +213,25 @@ class StoreOnboardingUserData:
                 if self.post_data['newsletter_subscribe'] == 'no':
 
                     old_candidate.newsletter_subscribe = False
+
+                # create a new BooleanField to check weather user filled details first time
+                # if user.is_first_time == True: send email and turn off condition to false
+                if old_candidate.welcome_email_sent == False:
+
+                    # check weather user signed condition for newsletter and event
+                    # by default we will send third flow email
+                    if self.post_data['newsletter_subscribe'] == 'yes':
+
+                        FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 2).select_flow_and_fire()
+
+                    if self.post_data['event_subscribe'] == 'yes':
+
+                        FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 3).select_flow_and_fire()
+
+                    # by default for flow_id: 4
+                    FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 4).select_flow_and_fire()
+
+                    old_candidate.welcome_email_sent = True
 
                 old_candidate.save()
 
