@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,6 +11,16 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136091004-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-136091004-1');
+    </script>
 
     <title>HelloMeets Job Board - Candidate Resister</title>
 
@@ -47,7 +59,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">HelloMeets - Job Board</a>
+    <a class="navbar-brand" href="#"><img src="{% static 'images/hm_logo.png' %}" height="30px" />  Job Board</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -70,7 +82,7 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>Top Companies. Full Privacy. No spam.</h3>
+        <h3>Work opportunities from the HelloMeets Community</h3>
         <span class="main-heading-small">
                     If you are looking to hire. <a href="#">Click here</a>
                 </span>

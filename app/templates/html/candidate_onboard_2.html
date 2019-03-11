@@ -14,7 +14,17 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}">
 
-    <title>HelloMeets Job Board - Candidate Resister</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136091004-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-136091004-1');
+    </script>
+
+    <title>HelloMeets Job Board - Candidate Register</title>
 
     <style>
         body {
@@ -56,7 +66,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">HelloMeets - Job Board</a>
+    <a class="navbar-brand" href="#"><img src="{% static 'images/hm_logo.png' %}" height="30px" />  Job Board</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -95,7 +105,7 @@
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">
-                        <label>7. Do you want to receive updates about upcoming events in your city?</label>
+                        <label>7. Do you want to receive updates about HelloMeets events in your city?</label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="event_subscribe" id="event_subscribe_1" value="yes" checked>
                             <label class="form-check-label" for="exampleRadios1">Yes</label>
