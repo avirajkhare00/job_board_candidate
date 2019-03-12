@@ -68,3 +68,33 @@ class FireFlow:
                 "HelloMeets JobBoard Forget Password",
                 "Hello <b>" + self.first_name + "</b><br />Click on this link to reset your password: <a href='https://jobboard.hellomeets.com/new_password/?s=" + property_dict['password_reset_link'] + "'>PASSWORD RESET LINK</a><br />If you did not request it, please ignore this mail."
             ).send_it()
+
+        if self.flow_id == 8:
+
+            SendMailSendGrid(
+                self.email,
+                "HelloMeets JobBoard - New Job Posted",
+                "Hello <b>" + self.first_name + "</b><br />You have posted a new job.<br /><a href='https://jobboard.hellomeets.com/job/" + property_dict['job_slug'] + "'>view job</a>"
+            ).send_it()
+
+        if self.flow_id == 9:
+
+            # TODO finish it in the end.
+
+            pass
+
+        if self.flow_id == 10:
+
+            SendMailSendGrid(
+                self.email,
+                "HelloMeets JobBoard - New Candidate Application",
+                "Hello <b>" +
+                self.first_name +
+                "</b><br />" +
+                "New candidate applied for following job you posted<br />" +
+                "Job Name: <b>" + property_dict['job_name'] + "</b><br />" +
+                "Job Link: <a href='https://jobboard.hellomeets.com/job/" + property_dict['job_slug'] + "'><b>view job</b></a><br />" +
+                "Candidate Name: <b>" + property_dict['candidate_name'] + "</b><br />" +
+                "Candidate Email: <b>" + property_dict['candidate_email'] + "</b><br />" +
+                "Resume Link: <b><a href='https://jobboard.hellomeets.com/static/" + property_dict['candidate_resume_link'] + "'>click here to view resume</a></b>"
+            ).send_it()

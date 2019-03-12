@@ -77,7 +77,7 @@ def new_job(request):
 
         if request.user.is_authenticated:
 
-            print(request.POST)
+            # print(request.POST)
 
             status = StoreNewJob(request.POST, request.user.username).store_data()
 
@@ -98,7 +98,7 @@ def job_show_page(request):
 
     if request.method == 'GET':
 
-        print(request.path.split('/')[2])
+        # print(request.path.split('/')[2])
 
         if JobPost.objects.filter(job_slug=request.path.split('/')[2]).exists():
 

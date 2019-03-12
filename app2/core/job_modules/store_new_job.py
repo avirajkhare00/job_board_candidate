@@ -1,5 +1,7 @@
 from app2.models import JobPost, JobSkills, CompanyDetails
 from app.models import UserGeneratedSkills
+from django.contrib.auth.models import User
+from app.core.mail_modules.fire_flow import FireFlow
 import random
 import string
 
@@ -10,6 +12,7 @@ class StoreNewJob:
 
         self.post_data = post_data
         self.username = username
+        self.user = User.objects.get(username=self.username)
 
     def store_data(self):
 
@@ -80,5 +83,13 @@ class StoreNewJob:
                 job_skill.job_skill_id = i
 
                 job_skill.save()
+
+        FireFlow(
+            self.user.first_name,
+            self.user.email,
+            8
+        ).select_util_flow_and_fire({
+            "job_slug": new_job.job_slug
+        })
 
         return 'ok'
