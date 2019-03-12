@@ -35,11 +35,19 @@ class GetUserProfileData:
             'candidate_job_title': JobName.objects.get(job_name_id=candidate_field_object.candidate_job_id).job_name,
             'current_location_value': candidate_field_object.current_location_id,
             'remote_working_status': candidate_field_object.remote_working,
-            'candidate_resume_url': 'https://jobboard.hellomeets.com/candidate/static/resumes/' + candidate_field_object.resume_file_name,
+            # 'candidate_resume_url': candidate_field_object.resume_file_name,
             'candidate_interested_cities': candidate_interested_cities,
             'candidate_skill_ids': candidate_skills_list_list,
             'event_subscribe_status': candidate_field_object.event_subscribe,
             'newsletter_subscribe_status': candidate_field_object.newsletter_subscribe
         }
+
+        if candidate_field_object.resume_file_name == 'no_resume':
+
+            self.profile_data['candidate_resume_url'] = 'no_resume'
+
+        else:
+
+            self.profile_data['candidate_resume_url'] = candidate_field_object.resume_file_name
 
         return self.profile_data

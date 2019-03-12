@@ -124,8 +124,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="job_location_id">3. Where is this job located?</label>
-                        <select name="job_location" id="job_location_id" placeholder="Delhi" required></select>
+                        <label for="job_location_id">
+                            3. Where is this job located?<br />
+                            <small>Select remote if this is remote job.</small>
+                        </label>
+                        <select name="job_location" id="job_location_id" placeholder="Please select city." required></select>
                     </div>
                     <div class="form-group">
                         <label for="job_description">4. Please enter Job Description.</label>
@@ -176,6 +179,10 @@
     $(document).ready(function () {
 
         console.log('this page is working!');
+
+        //increasing z-index so that editor wont show up
+        $('.selectize-dropdown').css('z-index', 100);
+
 
         $.get('../../candidate/api/v1/fetch_job_categories/', function (data) {
 
@@ -228,6 +235,8 @@
                             }
                         }
                     });
+
+                    $('.selectize-dropdown').css('z-index', 100);
 
                 })
             }

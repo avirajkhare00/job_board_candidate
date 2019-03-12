@@ -165,18 +165,28 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        if (getParameterByName('error') == 'wrong_credentials') {
+        function showErrorMessage(errorText){
 
             //append failure notification
             $('#alert-area').append(
                 '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                '<strong>Error!</strong> Email or password is incorrect.' +
+                '<strong>Error!</strong> ' + errorText +
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                 '<span aria-hidden="true">&times;</span>' +
                 '</button>' +
                 '</div>'
             )
 
+        }
+
+        if (getParameterByName('error') === 'wrong_credentials') {
+
+            showErrorMessage('Wrong email or password.')
+
+        }
+
+        if (getParameterByName('error') === 'user_does_not_exists'){
+            showErrorMessage('User does not exists. Please register new account')
         }
 
     })

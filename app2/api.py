@@ -16,6 +16,10 @@ def apply_job_api(request):
 
             if CandidateFields.objects.filter(user_id__username=request.user.username).exists():
 
+                if CandidateFields.objects.get(user_id__username=request.user.username).resume_file_name == 'no_resume':
+
+                    return HttpResponse('no_resume')
+
                 return HttpResponse(JobApplicantLogin(CandidateFields.objects.get(user_id__username=request.user.username).user_id.email, int(request.POST['job_id'])).store_job_applicant())
 
             else:

@@ -208,9 +208,15 @@
                 $('#remote_working_status').text('No')
             }
 
-            $('#resume').html(
-                '<a href="' + profile_data.candidate_resume_url + '">link</a>'
-            )
+            if(profile_data.candidate_resume_url === 'no_resume'){
+                $('#resume').html('<b>No resume</b>')
+            }
+
+            if(profile_data.candidate_resume_url !== 'no_resume'){
+                $('#resume').html(
+                    '<a href="https://jobboard.hellomeets.com/static/resumes/' + profile_data.candidate_resume_url + '">link</a>'
+                )
+            }
 
         })
 

@@ -58,7 +58,7 @@ def login_user(request):
 
         else:
 
-            return redirect('../login?error=wrong_credentials')
+            return redirect('../login?error=user_does_not_exists')
 
 
 def logout_user(request):

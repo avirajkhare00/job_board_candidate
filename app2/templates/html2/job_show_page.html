@@ -183,6 +183,18 @@
 
         console.log('this page is working!');
 
+        function showAlert(alertText){
+            //append failure notification
+            $('#alert-area').append(
+                '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<strong>Error!</strong>' + alertText +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>'
+            )
+        }
+
         $('#apply_job').on('click', function(){
 
             $.ajax({
@@ -194,8 +206,16 @@
                 },
                 success: function(data){
                     //alert(data);
-                    if(data == 'ok'){
+                    if(data === 'ok'){
                         alert('Thanks! Your job application has been sent.')
+                    }
+                    if(data === 'no_resume'){
+                        //alert('Please upload your resume in your profile.')
+                        showAlert(' Please upload your resume in your profile. <a href="../../candidate/onboard/?page=1">click here</a>')
+                    }
+                    if(data === 'complete_onboarding'){
+                        //alert('Please complete your profile')
+                        showAlert(' Please complete your profile. <a href="../../candidate/onboard/?page=1">click here</a>')
                     }
                 }
             })

@@ -133,8 +133,8 @@ class StoreOnboardingUserData:
 
             if CandidateFields.objects.filter(user_id__username=self.request.user.username).exists():
 
-                if 'candidate_resume' not in self.request.FILES:
-                    return 'resume_not_found_error'
+                # if 'candidate_resume' not in self.request.FILES:
+                #    return 'resume_not_found_error'
 
                 if 'current_city' not in self.post_data:
                     return 'current_city_not_found_error'
@@ -157,7 +157,13 @@ class StoreOnboardingUserData:
 
                     old_candidate.remote_working = False
 
-                old_candidate.resume_file_name = SavePDFFile(self.request.FILES['candidate_resume']).save_file()
+                if 'candidate_resume' in self.request.FILES:
+
+                    old_candidate.resume_file_name = SavePDFFile(self.request.FILES['candidate_resume']).save_file()
+
+                if 'candidate_resume' not in self.request.FILES:
+
+                    old_candidate.resume_file_name = 'no_resume'# TODO remember this. If user applies for job and no_resume is there then send alert
 
                 old_candidate.current_location_id = self.post_data['current_city']
 
