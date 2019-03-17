@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from app2.core.auth_modules.validate_signup import ValidateSignup
 from app2.core.job_modules.store_new_job import StoreNewJob
+from app2.core.job_modules.update_job import UpdateJobById
 from app2.models import CompanyDetails, JobPost, JobSkills, JobApplicants, HomeRecruiter
 from app.models import CandidateFields
 
@@ -61,6 +62,83 @@ def employer_jobs_page(request):
         return redirect('../login/?error=login_required')
 
 
+def edit_job(request):
+
+    if request.method == 'GET':
+
+        if request.user.is_authenticated:
+
+            if 'job_id' in request.GET:
+
+                try:
+
+                    if JobPost.objects.get(id=request.GET['job_id']).job_id.company_id.username == request.user.username:
+
+                        job_post = JobPost.objects.get(id=request.GET['job_id'])
+                        all_skills = []
+
+                        for skill in JobSkills.objects.filter(job_id=job_post):
+
+                            all_skills.append(skill.job_skill_id)
+
+                        return render(request, 'html2/edit_job.html', {
+                            "job_id": job_post.id,
+                            "job_title_value": job_post.job_name,
+                            "job_role_value": job_post.job_name_id,
+                            "job_location": job_post.job_location_id,
+                            "job_description": job_post.job_description,
+                            "skill_ids": all_skills
+                        })
+
+                    else:
+
+                        return HttpResponse('invalid job id')
+
+                except JobPost.DoesNotExist:
+
+                    return HttpResponse('job id does not exist')
+
+            else:
+
+                return redirect('../jobs/')
+
+        else:
+
+            return redirect('../login/')
+
+    if request.method == 'POST':
+
+        if request.user.is_authenticated:
+
+            print(request.POST)
+
+            if 'job_id' in request.POST:
+
+                try:
+
+                    if JobPost.objects.get(id=request.POST['job_id']).job_id.company_id.username == request.user.username:
+
+                        UpdateJobById(request.POST, request.POST['job_id']).update_job()
+
+                        return HttpResponse(200)
+
+                    else:
+
+                        return HttpResponse(401)
+
+                except JobPost.DoesNotExist:
+
+                    return HttpResponse('job id does not exist')
+
+            else:
+
+                return HttpResponse(401)
+
+        else:
+
+            return HttpResponse(401)
+
+
 def new_job(request):
 
     if request.method == 'GET':
@@ -109,7 +187,8 @@ def job_show_page(request):
                 'company_name': job_post.job_id.company_name,
                 'job_location': job_post.job_location_id,
                 'job_description': job_post.job_description,
-                'job_id': job_post.id
+                'job_id': job_post.id,
+                'is_active': job_post.is_active
             })
 
         else:

@@ -105,7 +105,10 @@
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">
-                        <label>3. Where are you currently located?</label>
+                        <label>
+                            3. Where are you currently located?<br />
+                            <small>Please add your city if it is not listed.</small>
+                        </label>
                         <div class="form-row">
                             <div class="form-group col-md-8">
                                 <select name="current_city" id="current_city_id" placeholder="Select your current city" required></select>
@@ -206,7 +209,7 @@
                 options: global_city_data,
                 create: function(input){
                     console.log(input);
-                    options.push({
+                    global_city_data.push({
                         id : 'ucity_' + input.toLowerCase(),
                         title : input
                     });
@@ -227,7 +230,7 @@
                 options: global_city_data,
                 create: function(input){
                     console.log(input);
-                    options.push({
+                    global_city_data.push({
                         id : 'ucity_' + input.toLowerCase(),
                         title : input
                     });

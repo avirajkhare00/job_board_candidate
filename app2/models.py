@@ -25,7 +25,6 @@ class JobPost(models.Model):
     job_description = models.TextField()
     added_on = models.DateField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True)
-    is_draft = models.BooleanField(default=False)
 
     def __str__(self):
 

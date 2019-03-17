@@ -216,7 +216,7 @@
 
 
                     $('#job_location_id').selectize({
-                        //plugins: ['remove_button'],
+                        plugins: ['remove_button'],
                         delimiter: ',',
                         persist: false,
                         valueField: 'id',
@@ -225,7 +225,7 @@
                         options: global_city_data,
                         create: function (input) {
                             console.log(input);
-                            options.push({
+                            global_city_data.push({
                                 id: 'ucity_' + input.toLowerCase(),
                                 title: input
                             });
@@ -263,6 +263,15 @@
                     id: 'ss_' + secondary_skill.fields.secondary_skill_id.toString(),
                     title: secondary_skill.fields.name
                 })
+
+            });
+
+            JSON.parse(data.fetched_data.user_skills).forEach(function(user_skill){
+
+                options.push({
+                    id: 'us_' + user_skill.fields.skill_id.toString(),
+                    title: user_skill.fields.name
+                });
 
             });
 
@@ -311,11 +320,6 @@
             }
 
             //send whole content as xhr and on success load to new window
-            console.log($('#job_name_id').val());
-            console.log($('#fetch_job_categories').val());
-            console.log($('#job_location_id').val());
-            console.log($('#skill_id').val());
-            console.log($('#min_editor').trumbowyg('html'));
 
             $.ajax({
                 url: '../new_job/',

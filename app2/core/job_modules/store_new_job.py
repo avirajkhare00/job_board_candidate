@@ -1,4 +1,5 @@
 from app2.models import JobPost, JobSkills, CompanyDetails
+from app.models import IndianCityName
 from app.models import UserGeneratedSkills
 from django.contrib.auth.models import User
 from app.core.mail_modules.fire_flow import FireFlow
@@ -44,16 +45,37 @@ class StoreNewJob:
         new_job.job_name = self.post_data['job_name']
         new_job.job_slug = company_id.company_name.lower().replace(' ','-').replace('.', '').replace('/','-') + '-' + self.post_data['job_name'].lower().replace(' ','-').replace('.', '').replace('/','-') + '-' + ''.join([random.choice(string.ascii_letters + string.digits) for n in range(4)])# assuming that there would be rare chance that this will collide too
         new_job.job_name_id = int(self.post_data['job_category_id'])
-        new_job.job_location_id = self.post_data['job_location_id']
+        # new_job.job_location_id = self.post_data['job_location_id']
         new_job.job_description = self.post_data['job_content']
 
-        if self.post_data['is_draft'] == 'false':
+        if '_' in self.post_data['job_location_id']:
 
-            new_job.is_draft = False
+            if self.post_data['job_location_id'].split('_')[0] == 'ucity':
+
+                new_city = IndianCityName()
+
+                new_city.city_name = self.post_data['job_location_id'].split('_')[1].capitalize()
+                new_city.city_value = self.post_data['job_location_id'].split('_')[1]
+
+                new_city.save()
+
+                new_job.job_location_id = self.post_data['job_location_id'].split('_')[1].capitalize()
+
+            else:
+
+                new_job.job_location_id = self.post_data['job_location_id']
+
+        else:
+
+            new_job.job_location_id = self.post_data['job_location_id']
 
         if self.post_data['is_draft'] == 'true':
 
-            new_job.is_draft = True
+            new_job.is_active = False
+
+        if self.post_data['is_draft'] == 'false':
+
+            new_job.is_active = True
 
         new_job.save()
 

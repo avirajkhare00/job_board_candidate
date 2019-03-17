@@ -144,13 +144,21 @@
 
             <div class="job-apply-area">
 
-                {% if request.user.is_authenticated %}
+                {% if is_active %}
 
-                    <button type="button" id="apply_job" class="btn btn-outline-primary">Apply</button>
+                    {% if request.user.is_authenticated %}
+
+                        <button type="button" id="apply_job" class="btn btn-outline-primary">Apply</button>
+
+                    {% else %}
+
+                        You need to <a href="../candidate/register/">register</a> or <a href="../candidate/login/">login</a> to apply for this job.
+
+                    {% endif %}
 
                 {% else %}
 
-                    You need to <a href="../candidate/register/">register</a> or <a href="../candidate/login/">login</a> to apply for this job.
+                    Job opening is closed.
 
                 {% endif %}
 
@@ -182,6 +190,8 @@
     $(document).ready(function () {
 
         console.log('this page is working!');
+
+        {% if is_active %}
 
         function showAlert(alertText){
             //append failure notification
@@ -221,6 +231,8 @@
             })
 
         })
+
+        {% endif %}
 
     })
 

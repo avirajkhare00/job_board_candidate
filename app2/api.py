@@ -53,6 +53,75 @@ def fetch_job_ids(request):
 
             return HttpResponse(401)
 
+
+def deactivate_job_by_id(request):
+
+    if request.method == 'GET':
+
+        return HttpResponse(401)
+
+    if request.method == 'POST':
+
+        if request.user.is_authenticated:
+
+            try:
+
+                if JobPost.objects.get(id=request.POST['job_id']).job_id.company_id.username == request.user.username:
+
+                    old_job = JobPost.objects.get(id=request.POST['job_id'])
+
+                    old_job.is_active = False
+                    old_job.save()
+
+                    return HttpResponse(200)
+
+                else:
+
+                    return HttpResponse(401)
+
+            except JobPost.DoesNotExist:
+
+                return HttpResponse(401)
+
+        else:
+
+            return HttpResponse(401)
+
+
+def activate_job_by_id(request):
+
+    if request.method == 'GET':
+
+        return HttpResponse(401)
+
+    if request.method == 'POST':
+
+        if request.user.is_authenticated:
+
+            try:
+
+                if JobPost.objects.get(id=request.POST['job_id']).job_id.company_id.username == request.user.username:
+
+                    old_job = JobPost.objects.get(id=request.POST['job_id'])
+
+                    old_job.is_active = True
+                    old_job.save()
+
+                    return HttpResponse(200)
+
+                else:
+
+                    return HttpResponse(401)
+
+            except JobPost.DoesNotExist:
+
+                return HttpResponse(401)
+
+        else:
+
+            return HttpResponse(401)
+
+
 def fetch_recent_jobs(request):
 
     if request.method == 'GET':

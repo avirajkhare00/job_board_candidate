@@ -1,4 +1,5 @@
 from app.models import CandidateFields, CandidateSkills, UserGeneratedSkills, CandidateInterestedCities
+from app.models import IndianCityName
 from app.core.onboarding_modules.save_pdf_file import SavePDFFile
 from app.core.mail_modules.fire_flow import FireFlow
 
@@ -165,7 +166,25 @@ class StoreOnboardingUserData:
 
                     old_candidate.resume_file_name = 'no_resume'# TODO remember this. If user applies for job and no_resume is there then send alert
 
-                old_candidate.current_location_id = self.post_data['current_city']
+                if 'current_city' in self.post_data:
+
+                    if '_' in self.post_data['current_city']:
+
+                        if self.post_data['current_city'].split('_')[0] == 'ucity':
+
+                            new_city = IndianCityName()
+                            new_city.city_name = self.post_data['current_city'].split('_')[1]
+                            new_city.city_value = self.post_data['current_city'].split('_')[1]
+
+                            new_city.save()
+
+                        else:
+
+                            old_candidate.current_location_id = self.post_data['current_city']
+
+                    else:
+
+                        old_candidate.current_location_id = self.post_data['current_city']
 
                 old_candidate.save()
 
@@ -177,10 +196,19 @@ class StoreOnboardingUserData:
 
                 for p in preferred_cities:
 
+                    if '_' in p:
+
+                        add_new_city = IndianCityName()
+
+                        add_new_city.city_name = p.capitalize()
+                        add_new_city.city_value = p
+
+                        add_new_city.save()
+
                     new_city = CandidateInterestedCities()
 
                     new_city.user_id = old_candidate
-                    new_city.interested_city_value = p
+                    new_city.interested_city_value = p.capitalize()
 
                     new_city.save()
 

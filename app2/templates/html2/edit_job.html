@@ -25,7 +25,7 @@
         gtag('config', 'UA-136091004-1');
     </script>
 
-    <title>HelloMeets Job Board - Post A New Job</title>
+    <title>HelloMeets Job Board - Edit Job</title>
 
     <style>
         body {
@@ -73,19 +73,22 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
+
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../jobs/">Job <span class="sr-only">(current)</span></a>
+            </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../new_job/">Edit Job <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Employers</a>
+                <a class="nav-link" href="../logout/">Logout</a>
             </li>
         </ul>
     </div>
+
+
 </nav>
 
 <main role="main">
@@ -93,7 +96,8 @@
     <div id="alert-area"></div>
 
     <div class="container main-heading">
-        <h3>Post a New Job</h3>
+        <h3>Edit Job</h3>
+        <small>You can only update option 3, 4 and 5.</small>
     </div>
 
     <div class="row">
@@ -116,16 +120,16 @@
                     <div class="form-group">
                         <label for="job_name_id">1. Job Title</label>
                         <input type="text" name="job_name" class="form-control" id="job_name_id"
-                               placeholder="Job Title" required/>
+                               placeholder="Job Title" value="{{ job_title_value }}" required disabled/>
                     </div>
                     <div class="form-group">
                         <label for="fetch_job_categories">2. Job Role</label>
-                        <select name="job_role" class="form-control form-control-sm" id="fetch_job_categories">
+                        <select name="job_role" class="form-control form-control-sm" id="fetch_job_categories" value="{{ job_role_value }}">
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="job_location_id">3. Where is this job located?</label>
-                        <select name="job_location" id="job_location_id" placeholder="Delhi" required></select>
+                        <select name="job_location" id="job_location_id" placeholder="Select city" required></select>
                     </div>
                     <div class="form-group">
                         <label for="job_description">4. Please enter Job Description.</label>
@@ -136,7 +140,7 @@
                         <select name="job_skills[]" class="" id="skill_id"
                                 placeholder="e.g Python, javascript" multiple required> </select>
                     </div>
-                    <button type="button" id="post_job" class="btn btn-outline-success btn-lg btn-block">Save
+                    <button type="button" id="post_job" class="btn btn-outline-success btn-lg btn-block">Update Job
                     </button>
                 </form>
 
@@ -175,6 +179,18 @@
 
         console.log('this page is working!');
 
+        var selected_skills = [];
+
+        {% for skill in skill_ids %}
+
+            selected_skills.push('{{ skill }}');
+
+        {% endfor %}
+
+        //insert html in editor
+
+        $('#min_editor').html('{{ job_description }}');
+
         $.get('../../candidate/api/v1/fetch_job_categories/', function (data) {
 
             if (data.status == 'ok') {
@@ -184,7 +200,7 @@
                 data.data.forEach(function (job_category) {
                     select_dom_data += '<optgroup label="' + job_category.job_category_name + '">';
                     JSON.parse(job_category.job_fields).forEach(function (job_fields) {
-                        select_dom_data += '<option value="' + job_fields.fields.job_name_id + '">' + job_fields.fields.job_name + '</option>'
+                        select_dom_data += '<option value="' + job_fields.fields.job_name_id + '" disabled>' + job_fields.fields.job_name + '</option>'
                     });
                     select_dom_data += '<optgroup>'
                 });
@@ -214,6 +230,7 @@
                         labelField: 'title',
                         searchField: 'title',
                         options: global_city_data,
+                        setValue: '{{ job_location }}'.toLowerCase(),
                         create: function (input) {
                             console.log(input);
                             options.push({
@@ -227,6 +244,18 @@
                         }
                     });
 
+                    //increasing z-index
+                    $('.selectize-dropdown').css('z-index', 100);
+
+                    $('#fetch_job_categories option[value="{{ job_role_value }}"]').prop('disabled', false);
+
+                    $('#fetch_job_categories option[value="{{ job_role_value }}"]').prop('selected', true);
+
+                    //setting default value for selected city name
+                    let $select_current_location = $('#job_location_id').selectize();
+
+                    $select_current_location[0].selectize.setValue('{{ job_location }}'.toLowerCase())
+
                 })
             }
 
@@ -234,6 +263,8 @@
 
 
         $.get('../api/v1/get_primary_secondary_skills/', function (data) {
+
+            console.log(data);
 
             var options = [];
 
@@ -251,7 +282,16 @@
                 options.push({
                     id: 'ss_' + secondary_skill.fields.secondary_skill_id.toString(),
                     title: secondary_skill.fields.name
-                })
+                });
+
+            });
+
+            JSON.parse(data.fetched_data.user_skills).forEach(function(user_skill){
+
+                options.push({
+                    id: 'us_' + user_skill.fields.skill_id.toString(),
+                    title: user_skill.fields.name
+                });
 
             });
 
@@ -267,15 +307,20 @@
                 create: function (input) {
                     console.log(input);
                     options.push({
-                        id: 'us_' + input.toLowerCase(),
+                        id: 'uss_' + input.toLowerCase(),
                         title: input
                     });
                     return {
-                        id: 'us_' + input.toLowerCase(),
+                        id: 'uss_' + input.toLowerCase(),
                         title: input
                     }
                 }
-            })
+            });
+
+            //setting default value for selected city name
+            let $select_skills = $('#skill_id').selectize();
+
+            $select_skills[0].selectize.setValue(selected_skills);
 
         });
 
@@ -300,19 +345,13 @@
             }
 
             //send whole content as xhr and on success load to new window
-            console.log($('#job_name_id').val());
-            console.log($('#fetch_job_categories').val());
-            console.log($('#job_location_id').val());
-            console.log($('#skill_id').val());
-            console.log($('#min_editor').trumbowyg('html'));
 
             $.ajax({
-                url: '../new_job/',
+                url: '../edit_job/',
                 method: 'POST',
                 data: {
                     csrfmiddlewaretoken: '{{ csrf_token }}',
-                    job_name: $('#job_name_id').val(),
-                    job_category_id: $('#fetch_job_categories').val(),
+                    job_id: '{{ job_id }}',
                     job_location_id: $('#job_location_id').val(),
                     skills: $('#skill_id').val(),
                     job_content: $('#min_editor').trumbowyg('html'),
@@ -329,15 +368,9 @@
 
         $('#post_job').on('click', function () {
 
-            sendPostJobData(1);
-
-        });
-
-        $('#save_draft').on('click', function () {
-
             sendPostJobData(2);
 
-        })
+        });
 
     });
 

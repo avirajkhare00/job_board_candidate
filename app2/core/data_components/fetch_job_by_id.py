@@ -15,7 +15,8 @@ class FetchJobById:
             'job_location': '',
             'added_on': '',
             'job_slug': '',
-            'skills': []
+            'skills': [],
+            'is_active': True
         }
 
     def get_data(self):
@@ -60,6 +61,7 @@ class FetchJobById:
             self.job_data['added_on'] = str(job.added_on)
             self.job_data['job_slug'] = job.job_slug
             self.job_data['skills'] = skill_name
+            self.job_data['is_active'] = job.is_active
 
             return self.job_data
 
