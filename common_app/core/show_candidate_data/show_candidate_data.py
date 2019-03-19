@@ -1,5 +1,5 @@
 from app.models import CandidateFields, CandidateSkills, CandidateInterestedCities
-from app.models import PrimarySkills, SecondarySkills, UserGeneratedSkills
+from app.models import PrimarySkills, SecondarySkills, UserGeneratedSkills, JobName
 
 
 class ShowCandidateData:
@@ -39,7 +39,8 @@ class ShowCandidateData:
                 {
                     "first_name": candidate.user_id.first_name,
                     "email": candidate.user_id.email,
-                    "candidate_skills": ','.join(self.convert_skill_object_to_list(candidate.user_id))
+                    "job_name": JobName.objects.get(job_name_id=candidate.candidate_job_id).job_name,
+                    "candidate_skills": ', '.join(self.convert_skill_object_to_list(candidate.user_id))
                 }
             )
 
