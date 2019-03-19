@@ -3,7 +3,28 @@ from common_app.models import PasswordUserMapping
 from common_app.core.forget_password_modules.forget_password import ForgetPassword
 from common_app.core.forget_password_modules.set_new_password import SetNewPassword
 
+from common_app.core.show_candidate_data.show_candidate_data import ShowCandidateData
+
 # Create your views here.
+
+
+def show_candidate_data(request):
+
+    if request.method == 'GET':
+
+        if request.user.is_authenticated and request.user.username == 'admin':
+
+            return render(request, 'html3/show_candidate_data.html', {
+                "candidate_data": ShowCandidateData().fetch_data_from_db()
+            })
+
+        else:
+
+            return HttpResponse(401)
+
+    else:
+
+        return HttpResponse(401)
 
 
 def forget_password_view(request):
