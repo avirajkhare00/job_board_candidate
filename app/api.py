@@ -51,6 +51,8 @@ def fetch_job_categories(request):
         return HttpResponse(401)
 
 # following function is deprecated
+
+
 def get_suggested_skills(request):
 
     if request.user.is_authenticated:

@@ -96,6 +96,7 @@ class FireFlow:
                 "Job Link: <a href='https://jobboard.hellomeets.com/job/" + property_dict['job_slug'] + "'><b>view job</b></a><br />" +
                 "Candidate Name: <b>" + property_dict['candidate_name'] + "</b><br />" +
                 "Candidate Email: <b>" + property_dict['candidate_email'] + "</b><br />" +
-                "Resume Link: <b><a href='https://jobboard.hellomeets.com/static/" + property_dict['candidate_resume_link'] + "'>click here to view resume</a></b>" +
-                "Best,<br /><b>HelloMeets</b>"
+                "Resume Link: <b><a href='https://jobboard.hellomeets.com/static/resumes/" + property_dict['candidate_resume_link'] + "'>click here to view resume</a></b><br />" +
+                "Best, <br />" +
+                "<b>HelloMeets</b>"
             ).send_it()

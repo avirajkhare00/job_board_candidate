@@ -216,8 +216,11 @@
                 },
                 success: function(data){
                     //alert(data);
+                    if(data === 'already_applied'){
+                        alert('You have already applied to this job');
+                    }
                     if(data === 'ok'){
-                        alert('Thanks! Your job application has been sent.')
+                        alert('Thanks your job application has been sent. The company will get in touch with you.')
                     }
                     if(data === 'no_resume'){
                         //alert('Please upload your resume in your profile.')
