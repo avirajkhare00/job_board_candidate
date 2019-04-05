@@ -15,8 +15,20 @@ class FireFlow:
 
             SendMailSendGrid(
                 self.email,
-                "Welcome to HelloMeets JobBoard.",
-                "Hello <b>" + self.first_name + "</b><br />Welcome to HelloMeets community. Please complete your profile."
+                "Welcome to HelloMeets Job Board.",
+                "Hello <b>" + self.first_name + "</b><br />" +
+                "Welcome on board.<br /><br />"
+                "<b>Important Tip:</b> Upload your resume to make you easily searchable for companies.<br /><br />" +
+                "How this Job Board works?<br />" +
+                "<ol>" +
+                    "<li>Once you sign in, you will be able to see all jobs based on your skills.</li>" +
+                    "<li>Apply for the job you are interested in.</li>" +
+                    "<li>If the company is interested in your profile, they will contact you.</li>" +
+                    "<li>You will also receive weekly job updates that match your preferences.</li>" +
+                "</ol><br />" +
+                "Thanks for being a part of the community and considering HelloMeets to find your next job.<br /><br />"
+                "Best,<br />" +
+                "<b>HelloMeets</b>"
             ).send_it()
 
         if self.flow_id == 2:
@@ -47,8 +59,17 @@ class FireFlow:
 
             SendMailSendGrid(
                 self.email,
-                "Welcome to HelloMeets JobBoard",
-                "Hello <b>" + self.first_name + "</b><br />Welcome on board.<br />Thanks for being a part of the community and considering HelloMeets as one of your hiring channels."
+                "Welcome to the HelloMeets Job Board",
+                "Hello <b>" + self.first_name + "</b><br />" +
+                "Thanks for being a part of the community and considering HelloMeets as one of your hiring channels.<br /><br />" +
+                "How this works?<br />" +
+                "<ol>" +
+                    "<li>Once a candidate applies to your job opening, you will receive an email along with their resume. Please feel free to contact them.</li>" +
+                    "<li>You will receive weekly job updates that match your job opening.</li>" +
+                "</ol><br /><br />" +
+                "Best,<br />" +
+                "<b>HelloMeets</b>"
+
             ).send_it()
 
         if self.flow_id == 7:

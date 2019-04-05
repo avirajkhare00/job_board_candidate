@@ -256,14 +256,18 @@ class StoreOnboardingUserData:
                     # by default we will send third flow email
                     if self.post_data['newsletter_subscribe'] == 'yes':
 
-                        FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 2).select_flow_and_fire()
+                        pass
+                        # FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 2).select_flow_and_fire()
 
                     if self.post_data['event_subscribe'] == 'yes':
 
-                        FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 3).select_flow_and_fire()
+                        pass
+                        # FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 3).select_flow_and_fire()
 
                     # by default for flow_id: 4
-                    FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 4).select_flow_and_fire()
+                    # FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 4).select_flow_and_fire()
+
+                    FireFlow(old_candidate.user_id.first_name, old_candidate.user_id.email, 1).select_flow_and_fire()
 
                     old_candidate.welcome_email_sent = True
 

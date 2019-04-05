@@ -70,6 +70,6 @@ class ValidateSignup:
             new_user.save()
 
             #inserting fire_flow to send transactional email
-            FireFlow(new_user.first_name, new_user.email, 1).select_flow_and_fire()
+            # FireFlow(new_user.first_name, new_user.email, 1).select_flow_and_fire()
 
             return 'ok'
