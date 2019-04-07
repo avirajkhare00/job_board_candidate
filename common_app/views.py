@@ -2,8 +2,11 @@ from django.shortcuts import render, HttpResponse, redirect
 from common_app.models import PasswordUserMapping
 from common_app.core.forget_password_modules.forget_password import ForgetPassword
 from common_app.core.forget_password_modules.set_new_password import SetNewPassword
-
 from common_app.core.show_candidate_data.show_candidate_data import ShowCandidateData
+from common_app.models import GoogleRecaptchaSiteKey, GoogleRecaptchaPages
+import requests
+
+from job_board_candidate.settings import GOOGLE_RECAPTCHA_SECRET_KEY
 
 # Create your views here.
 
@@ -31,14 +34,34 @@ def forget_password_view(request):
 
     if request.method == 'GET':
 
-        return render(request, 'html3/forget_password.html')
+        return render(request, 'html3/forget_password.html', {
+            'status': 'ok',
+            'site_key': GoogleRecaptchaSiteKey.objects.get(config_id=1).site_key,
+            'page_name': GoogleRecaptchaPages.objects.get(config_id=3).page_name
+        })
 
     if request.method == 'POST':
 
-        # call a method here
-        ForgetPassword(request.POST['candidate_email']).check_and_send_mail()
+        ''' Begin reCAPTCHA validation '''
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+        ''' End reCAPTCHA validation '''
+
+        if result['success']:
+
+            # call a method here
+            ForgetPassword(request.POST['candidate_email']).check_and_send_mail()
             
-        return redirect('../email_sent/')
+            return redirect('../email_sent/')
+
+        else:
+
+            return redirect('../forget_password/?error=recaptcha_error')
 
 
 def forget_password_success_page_view(request):

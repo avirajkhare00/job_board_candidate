@@ -76,7 +76,7 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="../logout/">Logout</a>
+                <a class="nav-link" href="../logout/">Logout <span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -206,6 +206,41 @@
             //showSuggestedSkills($('#fetch_job_categories option:selected').attr('id'))
         };
 
+        function loadUserProfileData(){
+
+            //code to get user profile data
+            $.get('../api/v1/get_user_profile_data/', function(data){
+
+                let profile_data = data;
+
+                if(profile_data.status){
+
+                    //setting up working professional or fresher status
+                    if(profile_data.candidate_status == 1){
+                        $('#candidate_status_1').attr('checked', true)
+                    }
+
+                    if(profile_data.candidate_status == 2){
+                        $('#candidate_status_2').attr('checked', true)
+                    }
+
+                    //setting up current selected role
+                    $('#fetch_job_categories').val(profile_data.candidate_job_value);
+
+                    //pushing already selected skills
+                    //setting default value for selected city name
+                    let $select_skills = $('#skill_id').selectize();
+
+                    $select_skills[0].selectize.setValue(profile_data.candidate_skill_ids);
+
+
+                }
+
+
+            })
+
+        }
+
 
         $.get('../api/v1/get_primary_secondary_skills/', function(data){
 
@@ -230,11 +265,12 @@
             });
 
             JSON.parse(data.fetched_data.user_skills).forEach(function(user_skill){
-                console.log(user_skill);
+
                 options.push({
-                    id: 'usd_' + user_skill.fields.skill_id.toString(),
+                    id: 'us_' + user_skill.fields.skill_id.toString(),
                     title: user_skill.fields.name
                 })
+
             });
 
             $('#skill_id').selectize({
@@ -249,15 +285,17 @@
                 create: function(input){
                     console.log(input);
                     options.push({
-                        id : 'us_' + input.toLowerCase(),
+                        id : 'usd_' + input.toLowerCase(),
                         title : input
                     });
                     return {
-                        id: 'us_' + input.toLowerCase(),
+                        id: 'usd_' + input.toLowerCase(),
                         title : input
                     }
                 }
             })
+
+            loadUserProfileData();
 
         });
 

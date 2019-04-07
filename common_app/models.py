@@ -10,3 +10,24 @@ class PasswordUserMapping(models.Model):
     def __str__(self):
 
         return self.user_id.username
+
+
+class GoogleRecaptchaSiteKey(models.Model):
+
+    config_id = models.IntegerField()
+    secret_key = models.CharField(max_length=200)
+    site_key = models.CharField(max_length=200)
+
+    def __str__(self):
+
+        return self.site_key
+
+
+class GoogleRecaptchaPages(models.Model):
+
+    config_id = models.IntegerField()
+    page_name = models.CharField(max_length=100)
+
+    def __str__(self):
+
+        return self.page_name

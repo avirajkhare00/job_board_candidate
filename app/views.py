@@ -2,10 +2,13 @@ from django.shortcuts import render, HttpResponse, redirect
 from app.core.auth_modules.validate_signup import ValidateSignup
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
-from app.core.onboarding_modules.store_onboarding_user_data import StoreOnboardingUserData
-from app2.models import JobPost
-from app.models import CandidateFields
-import json
+from common_app.models import GoogleRecaptchaSiteKey, GoogleRecaptchaPages
+from app.core.onboarding_modules.store_user_onboarding_data_page_1 import StoreUserOnboardingDataPage1
+from app.core.onboarding_modules.store_user_onboarding_data_page_2 import StoreOnboardingUserDataPage2
+from app.core.onboarding_modules.store_user_onboarding_data_page_3 import StoreOnboardingUserDataPage3
+import requests
+
+from job_board_candidate.settings import GOOGLE_RECAPTCHA_SECRET_KEY
 
 # Create your views here.
 
@@ -14,21 +17,41 @@ def register_page(request):
 
     if request.method == 'GET':
 
-        return render(request, 'html/register.html', {'status': 'ok'})
+        return render(request, 'html/register.html', {
+            'status': 'ok',
+            'site_key': GoogleRecaptchaSiteKey.objects.get(config_id=1).site_key,
+            'page_name': GoogleRecaptchaPages.objects.get(config_id=1).page_name
+        })
 
     if request.method == 'POST':
 
-        signup_status = ValidateSignup(request.POST).validate_it()
+        ''' Begin reCAPTCHA validation '''
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+        ''' End reCAPTCHA validation '''
 
-        if signup_status == 'ok':
+        if result['success']:
 
-            user = authenticate(request, username=request.POST['candidate_username'], password=request.POST['candidate_password'])
+            signup_status = ValidateSignup(request.POST).validate_it()
 
-            login(request, user)
+            if signup_status == 'ok':
+                user = authenticate(request, username=request.POST['candidate_username'],
+                                    password=request.POST['candidate_password'])
 
-            return redirect('../onboard/?page=1')
+                login(request, user)
 
-        return render(request, 'html/register.html', {'status':signup_status})
+                return redirect('../onboard/?page=1')
+
+            return render(request, 'html/register.html', {'status': signup_status})
+
+        else:
+
+            return render(request, 'html/register.html', {'status': 'recaptcha_error'})
 
 
 def login_user(request):
@@ -141,21 +164,50 @@ def user_onboard(request):
 
         if request.user.is_authenticated:
 
-            status = StoreOnboardingUserData(request).store_data()
+            if request.POST['page'] == '0':
 
-            if status == "send_user_page_1":
+                status_1 = StoreUserOnboardingDataPage1(request).store_data()
 
-                return redirect('../onboard/?page=1')
+                if status_1 == 1:
 
-            if status == 1:
+                    return redirect('../onboard/?page=2')
 
-                return redirect('../onboard/?page=2')
+                else:
 
-            if status == 2:
+                    return redirect('../onboard/?page=1&error=' + str(status_1))
 
-                return redirect('../onboard/?page=3')
+            if request.POST['page'] == '1':
 
-            if status == 3:
+                status_2 = StoreOnboardingUserDataPage2(request).store_data()
 
-                return redirect('../jobs/')
+                if status_2 == 2:
 
+                    return redirect('../onboard/?page=3')
+
+                if status_2 == 'send_user_page_1':
+
+                    return redirect('../onboard/?page=1')
+
+                else:
+
+                    return redirect('../onboard/?page=2&error=' + str(status_2))
+
+            if request.POST['page'] == '2':
+
+                status_3 = StoreOnboardingUserDataPage3(request).store_data()
+
+                if status_3 == 3:
+
+                    return redirect('../jobs/')
+
+                if status_3 == 'send_user_page_1':
+
+                    return redirect('../onboard/?page=1')
+
+                else:
+
+                    return redirect('../onboard/?page=3&error=' + str(status_3))
+
+        else:
+
+            return HttpResponse(401)

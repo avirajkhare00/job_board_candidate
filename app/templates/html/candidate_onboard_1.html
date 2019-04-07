@@ -74,14 +74,8 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Signup <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Employers</a>
+                <a class="nav-link" href="../logout/">Logout <span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -134,6 +128,7 @@
                             <label class="form-check-label" for="exampleRadios1">No</label>
                         </div>
                     </p>
+                    <p id="if_resume_upload_info" class="card-text"></p>
                     <p class="card-text">
                         <label>
                             6. Please upload your updated resume(PDF file only).<br />
@@ -146,7 +141,7 @@
                     <p class="card-text">
                         <div class="row">
                             <div class="col-md-1">
-                                <button class="btn btn-default" type="submit">Previous</button>
+                                <button class="btn btn-default" type="button" id="previous_button">Previous</button>
                             </div>
                             <div class="col-md-10"></div>
                             <div class="col-md-1">
@@ -184,6 +179,59 @@
     $(document).ready(function () {
 
         console.log('this page is working!');
+
+        $('#previous_button').on('click', function(){
+
+            window.location.href = '../onboard?page=1';
+
+        });
+
+        function loadUserProfileData(){
+
+            //code to get user profile data
+            $.get('../api/v1/get_user_profile_data/', function(data){
+
+                let profile_data = data;
+
+                if(profile_data.status){
+
+                    let $current_city = $('#current_city_id').selectize();
+
+                    $current_city[0].selectize.setValue(profile_data.current_location_value);
+
+                    let $interested_locations = $('#interested_location').selectize();
+
+                    $interested_locations = $('#open_city_id').selectize();
+
+                    $interested_locations[0].selectize.setValue(profile_data.candidate_interested_cities);
+
+                    if(profile_data.candidate_resume_url !== 'no_resume' && profile_data.candidate_resume_url !== null) {
+                        $('#if_resume_upload_info').html(
+                            '<label>' +
+                                'Your current uploaded resume: <a href="https://jobboard.hellomeets.com/static/resumes/' + profile_data.candidate_resume_url + '">link</a><br />' +
+                                '<small>You can update your resume by uploading new resume.</small>' +
+                            '</label>'
+                        )
+                    }
+
+                    if(profile_data.remote_working_status === true){
+
+                        $('#candidate_status_1').attr('checked', true);
+
+                    }
+
+                    if(profile_data.remote_working_status === false){
+
+                        $('#candidate_status_1').attr('checked', false);
+
+                    }
+
+
+                }
+
+            })
+
+        }
 
         var global_city_data = [];
 
@@ -239,7 +287,9 @@
                         title : input
                     }
                 }
-            })
+            });
+
+            loadUserProfileData()//calling here due to async nature
 
         });
 

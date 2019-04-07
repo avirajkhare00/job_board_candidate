@@ -6,6 +6,10 @@ from app2.core.job_modules.store_new_job import StoreNewJob
 from app2.core.job_modules.update_job import UpdateJobById
 from app2.models import CompanyDetails, JobPost, JobSkills, JobApplicants, HomeRecruiter
 from app.models import CandidateFields
+from common_app.models import GoogleRecaptchaPages, GoogleRecaptchaSiteKey
+import requests
+
+from job_board_candidate.settings import GOOGLE_RECAPTCHA_SECRET_KEY
 
 # Create your views here.
 
@@ -25,18 +29,34 @@ def register_page(request):
 
     if request.method == 'GET':
 
-        return render(request, 'html2/register.html')
+        return render(request, 'html2/register.html', {
+            'status': 'ok',
+            'site_key': GoogleRecaptchaSiteKey.objects.get(config_id=1).site_key,
+            'page_name': GoogleRecaptchaPages.objects.get(config_id=2).page_name
+        })
 
     if request.method == 'POST':
 
-        if ValidateSignup(request.POST).validate_it() == 'ok':
+        ''' Begin reCAPTCHA validation '''
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+        ''' End reCAPTCHA validation '''
 
-            user = authenticate(request, username=request.POST['employer_username'],
+        if result['success']:
+
+            if ValidateSignup(request.POST).validate_it() == 'ok':
+
+                user = authenticate(request, username=request.POST['employer_username'],
                                 password=request.POST['employer_password'])
 
-            login(request, user)
+                login(request, user)
 
-            return redirect('../jobs/')
+                return redirect('../jobs/')
 
         else:
 
