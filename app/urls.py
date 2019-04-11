@@ -4,6 +4,8 @@ from app.views import candidate_settings
 from app.api import fetch_job_categories, get_suggested_skills
 from app.api import get_primary_secondary_skills, get_indian_cities, get_user_profile_data
 from app.api import get_skill_name_from_id, filter_candidate_jobs, get_job_by_id
+from app.api import send_notification_email
+
 urlpatterns = [
     path('register/', register_page, name='register_page'),
     path('login/', login_user, name='login_user'),
@@ -21,4 +23,5 @@ urlpatterns = [
     path('get_skill_name_id/', get_skill_name_from_id, name='get_skill_name_id'),
     path('filter_candidate_jobs/', filter_candidate_jobs, name='filter_candidate_jobs'),
     path('get_job_by_id/', get_job_by_id, name='get_job_by_id'),
+    path('send_job_notification_email', send_notification_email, name='send_notification_email')
 ]

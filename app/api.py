@@ -10,6 +10,7 @@ from app.core.common_data.get_user_profile_data import GetUserProfileData
 from app.core.common_data.get_skill_name_id import GetSkillNameId
 from app.core.filter_jobs.filter_candidate_jobs import FilterCandidateJobs
 from app.core.data_components.get_job_by_id import GetJobById
+from app.core.job_notifications_candidate.job_notifications_candidate import JobNotificationsCandidate
 import json
 
 
@@ -31,6 +32,21 @@ def fetch_data_for_db(request):
         else:
 
             return HttpResponse('invalid_code')
+
+    else:
+
+        return HttpResponse(401)
+
+
+@csrf_exempt
+def send_notification_email(request):
+
+    if request.method == 'POST' and request.POST['number'] == '9893371444':
+
+        return HttpResponse(
+            json.dumps(JobNotificationsCandidate(request.POST['condition']).send_data()),
+            content_type='application/json'
+            )
 
     else:
 
