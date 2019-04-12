@@ -11,6 +11,7 @@ from app.core.common_data.get_skill_name_id import GetSkillNameId
 from app.core.filter_jobs.filter_candidate_jobs import FilterCandidateJobs
 from app.core.data_components.get_job_by_id import GetJobById
 from app.core.job_notifications_candidate.job_notifications_candidate import JobNotificationsCandidate
+from common_app.core.network_layer.post_request import PostRequest
 import json
 
 
@@ -43,10 +44,17 @@ def send_notification_email(request):
 
     if request.method == 'POST' and request.POST['number'] == '9893371444':
 
-        return HttpResponse(
-            json.dumps(JobNotificationsCandidate(request.POST['condition']).send_data()),
-            content_type='application/json'
-            )
+        PostRequest(
+            "https://fireflow.hellomeets.com/service0/send_notification_emails_bulk/",
+            {},
+            {},
+            {
+                "service_token": "9893371444",
+                "json_data": json.dumps(JobNotificationsCandidate(request.POST['condition']).send_data())
+            }
+        ).post_data()
+
+        return HttpResponse(202)
 
     else:
 
