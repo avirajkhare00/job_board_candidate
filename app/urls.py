@@ -23,5 +23,5 @@ urlpatterns = [
     path('get_skill_name_id/', get_skill_name_from_id, name='get_skill_name_id'),
     path('filter_candidate_jobs/', filter_candidate_jobs, name='filter_candidate_jobs'),
     path('get_job_by_id/', get_job_by_id, name='get_job_by_id'),
-    path('send_job_notification_email', send_notification_email, name='send_notification_email')
+    path('send_job_notification_email/', send_notification_email, name='send_notification_email')
 ]
