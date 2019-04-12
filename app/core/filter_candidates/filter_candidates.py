@@ -22,7 +22,7 @@ class FilterCandidates:
                     }
                 )
 
-                return self.candidate_data
+            return self.candidate_data
 
         else:
 
