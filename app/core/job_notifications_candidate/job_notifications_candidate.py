@@ -37,3 +37,5 @@ class JobNotificationsCandidate:
                         "jobs_data": CandidateJobDataEmail(candidate['username']).get_data_array()
                     }
                 )
+
+        return self.final_json_data
